@@ -109,6 +109,37 @@ body{overflow:hidden}
  .choice-icon{width:48px;height:48px;flex-basis:48px}
 }
 
+
+/* MM viewport balance + clearly labeled support action */
+#home{padding:8px 12px max(8px,env(safe-area-inset-bottom));}
+.home-inner{height:100%;max-height:none;justify-content:space-evenly;gap:clamp(8px,1.8vh,15px);}
+.brand-mark{width:54px;height:54px;flex-basis:54px;border-radius:17px;}
+.brand-mark svg{width:32px;height:32px;}
+.choices{grid-auto-rows:minmax(68px,auto);gap:9px;}
+.choice{min-height:68px;padding:10px 13px;}
+.choice-icon{width:46px;height:46px;flex-basis:46px;}
+.choice-icon svg{width:28px;height:28px;}
+.union-card{padding:11px 13px!important;font-size:12px;line-height:1.8;}
+.social-panel{padding:12px!important;}
+.social-link{min-height:39px;font-size:11px;}
+.home-actions{justify-content:center;margin:0;}
+.support-home{width:auto;min-width:112px;height:44px;flex:0 0 auto;padding:0 15px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:9px;}
+.support-home svg{width:21px;height:21px;flex:0 0 21px;}
+.support-label{font-size:12px;font-weight:900;white-space:nowrap;}
+@media(max-height:620px){
+ .home-inner{gap:5px;justify-content:center;}
+ .brand-mark{width:40px;height:40px;flex-basis:40px;}
+ .brand-mark svg{width:25px;height:25px;}
+ .choices{grid-auto-rows:minmax(53px,auto);gap:5px;}
+ .choice{min-height:53px;padding:7px 9px;}
+ .choice-icon{width:35px;height:35px;flex-basis:35px;}
+ .union-card{padding:6px 9px!important;font-size:10px;line-height:1.5;}
+ .social-panel{padding:6px!important;}
+ .social-link{min-height:28px;font-size:10px;}
+ .support-home{height:36px;min-width:100px;}
+ .home-footer{font-size:9px;}
+}
+
 </style>
 </head>
 <body>
@@ -152,6 +183,7 @@ body{overflow:hidden}
       <div class="home-actions">
         <a class="support-home" href="https://rubika.ir/Advertisements7" target="_blank" rel="noopener noreferrer" aria-label="پشتیبانی">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M5 14h2v6H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2zm12 0h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2z"/></svg>
+          <span class="support-label">پشتیبانی</span>
         </a>
       </div>
       <footer class="home-footer">MM • Animal Rush</footer>
