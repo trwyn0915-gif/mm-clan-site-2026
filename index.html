@@ -144,6 +144,18 @@ body{overflow:hidden}
 /* Remove the decorative shield beside the home page title */
 #home .brand-mark{display:none!important}
 #home .brand{justify-content:center;gap:0}
+
+/* Framed MM home title, aligned with the dashboard theme */
+#home .brand{transform:translateY(-5px);position:relative;z-index:1}
+#home .brand h1{
+  display:inline-block;
+  padding:7px 14px;
+  border:1.5px solid #17324b;
+  border-radius:12px;
+  background:#fff;
+  color:#17324b;
+  box-shadow:0 2px 5px rgba(23,50,75,.07);
+}
 </style>
 </head>
 <body>
