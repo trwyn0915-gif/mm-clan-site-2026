@@ -322,23 +322,19 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
   });
 })();
 
-/* MM performance: register local cache and warm service pages after first paint. */
+/* Remove the experimental MM cache worker and its stored pages. */
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
-    .then(() => navigator.serviceWorker.ready)
-    .then(() => {
-      const warmPages = () => {
-        Object.values(pages).forEach(path => {
-          fetch(path, {credentials:'same-origin'}).catch(() => {});
-        });
-      };
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(warmPages, {timeout:2500});
-      } else {
-        setTimeout(warmPages, 1800);
-      }
-    })
-    .catch(() => {});
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    registrations.forEach(registration => {
+      const worker = registration.active || registration.waiting || registration.installing;
+      if (worker && worker.scriptURL.endsWith('/sw.js')) registration.unregister();
+    });
+  }).catch(() => {});
+}
+if ('caches' in window) {
+  caches.keys().then(names => Promise.all(
+    names.filter(name => name.startsWith('mm-services-pages-')).map(name => caches.delete(name))
+  )).catch(() => {});
 }
 
 </script>
