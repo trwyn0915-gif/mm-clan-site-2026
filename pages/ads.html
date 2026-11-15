@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<title>رزرو تبلیغات MM | Animal Rush</title>
+<style>
+:root{--teal:#38c9c0;--teal-dark:#167e82;--ink:#244b5b;--muted:#5f7580;--paper:#f5f8f7;--card:#fff;--line:#dbe9e8;--blue:#2466d4}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:2}
+.page{width:min(100% - 28px,620px);margin:24px auto 36px}
+.top-link{display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:#fff !important;text-decoration:none;font-weight:900;border-radius:14px;padding:10px 22px;margin:0 0 24px;box-shadow:0 5px 12px #164a9b26;transition:transform .18s,filter .18s}
+.top-link:hover{filter:brightness(1.05);transform:translateY(-2px)}
+.hero{position:relative;overflow:hidden;text-align:center;background:linear-gradient(135deg,#43d0c7,#b7f3eb);border:2px solid var(--teal-dark);border-radius:24px;padding:25px 18px;margin-bottom:20px;box-shadow:0 8px 18px #247f7b18}.hero:after{content:"";position:absolute;width:150px;height:150px;border:22px solid #ffffff35;border-radius:50%;left:-52px;bottom:-85px;pointer-events:none}
+.hero h1{font-size:clamp(22px,5vw,31px);line-height:1.55;margin:0;font-weight:900;color:#145563;text-decoration:none;border:0}
+.hero p{margin:8px 0 0;color:#205d67;font-size:14px;font-weight:700;text-decoration:none;border:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 20px;margin:17px 0;box-shadow:0 5px 16px #204f5a0b}
+.card h2{font-size:clamp(19px,4.8vw,24px);line-height:1.6;margin:0 0 14px;color:#315d6a;font-weight:900}
+p{font-weight:700}
+.intro{margin:0 0 20px;font-size:16px;color:#405b64}
+.id-row{display:flex;gap:10px;align-items:stretch;margin:12px 0 18px}
+.id-value{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;background:#f4f8f8;border:1px solid #e1ebeb;border-radius:15px;padding:12px 10px;font-size:clamp(17px,4vw,22px);font-weight:900;direction:ltr;overflow-wrap:anywhere;color:#243d47}
+.small-btn{border:0;border-radius:14px;background:#244b5b;color:white;font-family:inherit;font-size:14px;font-weight:900;padding:12px 15px;cursor:pointer}
+.price{margin:12px 0 0;text-align:center;color:#168b89;font-size:clamp(25px,6vw,33px);font-weight:900}
+.price span{font-size:.78em}
+.payment-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:58px;border-radius:16px;background:linear-gradient(135deg,#39c8bf,#168e92);color:#fff;text-decoration:none;text-align:center;font-size:17px;font-weight:900;padding:12px 15px;border:0;font-family:inherit;cursor:pointer}
+.hint{background:#eafaf8;border:1px solid #b9e9e5;border-right:5px solid var(--teal-dark);border-radius:15px;padding:15px 16px;margin:14px 0 0;color:#315b64;font-weight:800}
+.steps{padding:0;margin:0;list-style:none}
+.steps li{position:relative;padding:0 40px 13px 0;margin:12px 0;font-weight:700}
+.steps li:before{content:attr(data-n);position:absolute;right:0;top:0;display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#2eabc2;color:#fff;font-weight:900}
+.support-card{margin-top:25px;text-align:center;background:linear-gradient(180deg,#e7fbf8,#fff);border:2px solid #a8e8e1;padding:22px 18px;border-radius:23px;box-shadow:0 8px 18px #1e89821a}
+.support-card h2{margin:0 0 7px;font-size:22px;color:#176a72}
+.support-card p{margin:0 auto 18px;color:#526e76;font-weight:700}
+.support-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:55px;border-radius:15px;background:#244b5b;color:#fff!important;text-decoration:none;font-size:17px;font-weight:900;padding:12px}
+.footer{text-align:center;color:#789098;font-size:13px;margin:23px 0 0;font-weight:700}
+@media(min-width:520px){.page{margin-top:34px}.card{padding:25px 26px}.hero{padding:30px 25px}}
+
+/* MM responsive ad slot: stays hidden until a real ad is injected. */
+#mm-ad-container {
+  position: relative; width: 100%; max-width: 100%; min-height: 90px;
+  margin: 0 0 20px; padding: 20px 12px 12px; overflow: hidden;
+  border: 1px solid var(--line, #dbe9e8); border-radius: 14px;
+  background: #fff; box-shadow: 0 5px 14px rgba(20, 50, 70, .07);
+  text-align: center;
+}
+#mm-ad-container:empty { display: none; }
+#mm-ad-container:not(:empty)::before,
+#mm-ad-container:not(:empty)::after {
+  position: absolute; top: 5px; z-index: 1; padding: 0 5px;
+  border-radius: 4px; background: rgba(36, 102, 212, .09);
+  color: #52677a; font: 700 9px/1.5 Arial, sans-serif; content: "AD";
+}
+#mm-ad-container:not(:empty)::before { left: 7px; }
+#mm-ad-container:not(:empty)::after { right: 7px; }
+#mm-ad-container > * { max-width: 100%; }
+#mm-ad-container img, #mm-ad-container iframe, #mm-ad-container video { max-width: 100%; }
+@media (max-width: 480px) {
+  #mm-ad-container { min-height: 60px; padding: 18px 8px 8px; border-radius: 12px; }
+}
+.top-link{display:none!important}html,body{min-height:100%;} </style>
+</head>
+<body>
+<main class="page">
+
+<div id="mm-ad-container" class="mm-ad-container" aria-label="Advertisement"></div>
+<header class="hero">
+<h1>رزرو تبلیغات <bdi>MM</bdi></h1>
+<p>تبلیغات خود را برای نمایش در کانال MM ثبت کنید.</p>
+</header>
+<section class="card">
+<h2>🎮 شناسه بازی Animal Rush</h2>
+<div class="id-row">
+<div class="id-value" id="gameId">cikzbzqxcp</div>
+<button class="small-btn" type="button" id="copyId">کپی شناسه</button>
+</div>
+
+<div class="hint"><strong>روش اول: پرداخت با سکه داخل بازی</strong><p style="margin:8px 0 0">شناسهٔ بازیِ نمایش‌داده‌شده در کادر بالا را کپی کنید و از داخل Animal Rush مبلغ <bdi>۱۰٬۰۰۰ سکه</bdi> به آن واریز کنید.</p></div>
+</section>
+<section class="card">
+  <h2>💳 روش پرداخت هزینه تبلیغات</h2>
+  <div class="hint">
+    <strong>روش دوم: پرداخت از طریق دونیت</strong>
+    <p style="margin:8px 0 0">از طریق لینک زیر مبلغ <bdi>۹۰٬۰۰۰ تومان</bdi> دونیت کنید.</p>
+  </div>
+  <a class="payment-btn" style="margin-top:14px" id="donateBtn" href="https://B2n.ir/zx6833" target="_blank" rel="noopener noreferrer">💳 پرداخت ۹۰ هزار تومان از طریق دونیت</a>
+</section>
+<section class="card">
+<h2>📨 ثبت و پیگیری سفارش</h2>
+<p class="intro">پس از پرداخت با یکی از دو روش بالا، تصویر مدرک پرداخت (واریز سکه داخل بازی یا دونیت) و بنر تبلیغاتی خود را به آیدی پشتیبانی زیر در روبیکا ارسال کنید. پیام‌ها هر روز فقط یک‌بار بررسی می‌شوند؛ لطفاً پس از ارسال، تا زمان پاسخ‌گویی شکیبا باشید.</p>
+<div class="hint">📌 هنگام ارسال پیام، اطلاعات سفارش و تصویرهای موردنیاز را کامل بفرستید تا بررسی آن آسان‌تر شود.</div>
+</section>
+
+<p class="footer">MM • Animal Rush</p>
+</main>
+<script>
+document.getElementById('copyId').addEventListener('click', async function(){
+  const value = document.getElementById('gameId').textContent.trim();
+  try {
+    await navigator.clipboard.writeText(value);
+    this.textContent = 'کپی شد ✓';
+  } catch(e) {
+    const area = document.createElement('textarea');
+    area.value = value; document.body.appendChild(area); area.select();
+    try { document.execCommand('copy'); this.textContent = 'کپی شد ✓'; }
+    catch(err) { this.textContent = value; }
+    area.remove();
+  }
+});
+</script>
+<script>
+/* MM_BUTTON_SOUND_V1 */
+(function(){
+  let audioContext = null;
+  function playButtonSound(){
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    try {
+      if (!audioContext) audioContext = new AudioContextClass();
+      if (audioContext.state === 'suspended') audioContext.resume();
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      const now = audioContext.currentTime;
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(560, now);
+      oscillator.frequency.exponentialRampToValueAtTime(760, now + 0.055);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.09, now + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
+      oscillator.connect(gain); gain.connect(audioContext.destination);
+      oscillator.start(now); oscillator.stop(now + 0.09);
+    } catch (error) {}
+  }
+  document.addEventListener('click', function(event){
+    if (event.target.closest('button')) playButtonSound();
+  });
+})();
+</script>
+</body>
+</html>
