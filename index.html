@@ -209,6 +209,20 @@ body{overflow:hidden}
   #home .social-link{font-size:11px}
 }
 
+
+/* User tools section */
+#home{overflow-y:auto!important;overscroll-behavior-y:contain}
+#home .home-inner{height:auto;min-height:100%;max-height:none;justify-content:flex-start;gap:12px;padding-bottom:14px}
+#home .user-tools{width:100%;margin-top:4px}
+#home .user-tools h2{margin:0 0 9px;text-align:right;color:#17324b;font-size:15px;font-weight:900}
+#home .tools-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;direction:rtl}
+#home .tool-card{aspect-ratio:1/1;min-width:0;padding:8px 4px;border:1px solid #dce8ef;border-radius:15px;background:#fff;color:#17324b;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;box-shadow:0 5px 14px #183d570d;text-align:center}
+#home .tool-card:active{transform:scale(.97)}
+#home .tool-card-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#173b5a,#10243d);color:#fff;flex:0 0 auto}
+#home .tool-card-icon svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#home .tool-card-title{font-size:clamp(9px,2.7vw,12px);font-weight:900;line-height:1.55}
+@media(min-width:600px){#home .user-tools h2{font-size:16px}#home .tool-card{padding:10px}#home .tool-card-title{font-size:12px}}
+
 </style>
 </head>
 <body>
@@ -235,6 +249,17 @@ body{overflow:hidden}
       <span class="choice-title">رزرو تبلیغات در چنل اتحادیه MM</span>
       <span class="choice-arrow" aria-hidden="true">‹</span>
     </button>
+      </section>
+      <section class="user-tools" aria-label="ابزارهای کاربران">
+        <h2>ابزارهای کاربران</h2>
+        <div class="tools-grid">
+          <a class="tool-card" href="https://trwyn0915-gif.github.io/mm-clan/kargbarg/" aria-label="ساخت کاربرگ آسان برای دبیران">
+            <span class="tool-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2Z"/><path d="M14 3.5V8h4M8 12h8M8 16h8"/></svg>
+            </span>
+            <span class="tool-card-title">ساخت کاربرگ (آسان) برای دبیران</span>
+          </a>
+        </div>
       </section>
       <section class="union-card" aria-label="معرفی عضویت اتحاد MM"><span class="union-icon" aria-hidden="true">✦</span>با قرار دادن تگ MM در کنار نام خود در بازی‌ها و شبکه‌های اجتماعی، به جمع اعضای اتحاد MM بپیوندید</section>
       <section class="social-panel" aria-label="شبکه‌های اجتماعی اتحادیه MM">
