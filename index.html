@@ -214,6 +214,8 @@ body{overflow:hidden}
 #home{overflow-y:auto!important;overscroll-behavior-y:contain}
 #home .home-inner{height:auto;min-height:100%;max-height:none;justify-content:flex-start;gap:12px;padding-bottom:14px}
 #home .home-inner{flex:0 0 auto}
+#home .brand{flex:0 0 auto;transform:none!important;margin-top:4px;}
+#home .brand h1{visibility:visible!important;display:inline-block!important;}
 #home .home-actions{width:100%;flex:0 0 auto;margin-top:0;padding:4px 0 22px;justify-content:center}
 #home .support-home{flex-shrink:0;max-width:100%}
 #home .user-tools{width:100%;margin-top:4px}
@@ -312,12 +314,14 @@ function showPage(key, addHistory=true) {
   if (addHistory) history.pushState({mmView:key}, '', '#'+key);
 }
 function showHome(fromPop=false) {
+  home.scrollTop = 0;
   currentPage = null;
   viewer.classList.remove('active');
   home.classList.remove('hidden');
   // Keep the iframe document in place while hidden; setting about:blank here
   // would create another joint-session-history entry on some mobile browsers.
   if (!fromPop && location.hash) history.replaceState({mmView:'home'}, '', location.pathname + location.search);
+home.scrollTop = 0;
 }
 document.querySelectorAll('.choice').forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
 window.addEventListener('popstate', (event) => {
