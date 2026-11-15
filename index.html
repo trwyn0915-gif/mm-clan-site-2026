@@ -311,7 +311,7 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
       oscillator.frequency.setValueAtTime(620, now);
       oscillator.frequency.exponentialRampToValueAtTime(820, now + 0.055);
       gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.045, now + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.12, now + 0.008);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
       oscillator.connect(gain); gain.connect(audioContext.destination);
       oscillator.start(now); oscillator.stop(now + 0.09);
