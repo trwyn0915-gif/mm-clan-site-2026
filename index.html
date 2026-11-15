@@ -297,7 +297,13 @@ let currentPage = null;
 function showPage(key, addHistory=true) {
   if (!pages[key]) return;
   currentPage = key;
-  frame.src = pages[key];
+  // Replace the iframe's initial document instead of adding a second
+  // browser-history entry. This makes the device Back button return home once.
+  try {
+    frame.contentWindow.location.replace(new URL(pages[key], location.href).href);
+  } catch (error) {
+    frame.src = pages[key];
+  }
   home.classList.add('hidden');
   viewer.classList.add('active');
   if (addHistory) history.pushState({mmView:key}, '', '#'+key);
@@ -306,12 +312,18 @@ function showHome(fromPop=false) {
   currentPage = null;
   viewer.classList.remove('active');
   home.classList.remove('hidden');
-  frame.src = 'about:blank';
+  // Keep the iframe document in place while hidden; setting about:blank here
+  // would create another joint-session-history entry on some mobile browsers.
   if (!fromPop && location.hash) history.replaceState({mmView:'home'}, '', location.pathname + location.search);
 }
 document.querySelectorAll('.choice').forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
 window.addEventListener('popstate', (event) => {
-  if (currentPage) showHome(true);
+  const key = event.state && event.state.mmView;
+  if (pages[key]) {
+    showPage(key, false);
+  } else {
+    showHome(true);
+  }
 });
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && currentPage) {
