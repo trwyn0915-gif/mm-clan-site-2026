@@ -321,6 +321,26 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
     if (event.target.closest('button, .choice')) playButtonSound();
   });
 })();
+
+/* MM performance: register local cache and warm service pages after first paint. */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => navigator.serviceWorker.ready)
+    .then(() => {
+      const warmPages = () => {
+        Object.values(pages).forEach(path => {
+          fetch(path, {credentials:'same-origin'}).catch(() => {});
+        });
+      };
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(warmPages, {timeout:2500});
+      } else {
+        setTimeout(warmPages, 1800);
+      }
+    })
+    .catch(() => {});
+}
+
 </script>
 </body>
 </html>
