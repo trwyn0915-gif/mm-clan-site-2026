@@ -295,7 +295,6 @@ window.addEventListener('keydown', (event) => {
 });
 history.replaceState({mmView:'home'}, '', location.pathname + location.search);
 
-<script>
 /* MM_HOME_BUTTON_SOUND_V1 */
 (function(){
   let audioContext = null;
@@ -319,10 +318,9 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
     } catch (error) {}
   }
   document.addEventListener('click', function(event){
-    if (event.target.closest('button')) playButtonSound();
+    if (event.target.closest('button, .choice')) playButtonSound();
   });
 })();
-</script>
 </script>
 </body>
 </html>
