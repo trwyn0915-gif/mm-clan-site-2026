@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://trwyn0915-gif.github.io/mm-clan-site-2026/sitemap.xml
