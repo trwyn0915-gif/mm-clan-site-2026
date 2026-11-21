@@ -257,6 +257,51 @@ body{overflow:hidden}
  #home .tool-card-title{font-size:9px}
  #home .support-home{height:34px}
 }
+
+
+/* Desktop typography and tool-card sizing refinement */
+html,body,button,a{
+  font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+#home .brand h1,
+#home .choice-title,
+#home .union-card,
+#home .social-panel h2,
+#home .social-panel p,
+#home .social-link,
+#home .tool-card-title,
+#home .support-label{
+  font-kerning:normal;
+  text-shadow:0 0 0.35px currentColor;
+}
+@media(min-width:700px){
+  #home .home-inner{width:min(100%,760px)}
+  #home .brand h1{font-size:22px;line-height:1.6}
+  #home .choice-title{font-size:17px;line-height:1.7}
+  #home .union-card{font-size:14px;line-height:2}
+  #home .social-panel h2{font-size:16px}
+  #home .social-panel p{font-size:13px}
+  #home .social-link{font-size:13px;min-height:42px}
+  #home .user-tools{width:100%}
+  #home .tools-grid{
+    grid-template-columns:repeat(auto-fit,minmax(110px,136px));
+    justify-content:center;
+    gap:12px;
+  }
+  #home .tool-card{
+    aspect-ratio:1.35/1;
+    padding:10px 8px;
+    gap:7px;
+    border-radius:14px;
+  }
+  #home .tool-card-icon{width:34px;height:34px;border-radius:10px}
+  #home .tool-card-icon svg{width:21px;height:21px}
+  #home .tool-card-title{font-size:12px;line-height:1.6}
+}
+
 </style>
 </head>
 <body>
