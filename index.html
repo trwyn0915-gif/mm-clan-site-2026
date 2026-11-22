@@ -549,9 +549,13 @@ if ('caches' in window) {
   });
   window.addEventListener('appinstalled', () => {
     installPrompt = null;
-    installButton.disabled = true;
-    installButton.setAttribute('aria-label','پنل خدمات MM روی کامپیوتر نصب شده است');
+    installButton.hidden = true;
   });
+  // Hide the install card while the installed app itself is running.
+  if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true) {
+    installButton.hidden = true;
+  }
   installButton.addEventListener('click', async () => {
     if (window.matchMedia('(display-mode: standalone)').matches) {
       showInstallHelp('پنل از قبل نصب شده', 'پنل خدمات MM در حالت برنامه اجرا شده است.');
