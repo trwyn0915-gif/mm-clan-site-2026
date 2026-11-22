@@ -10,6 +10,10 @@
 <meta name="description" content="اتحادیه MM، جامعه بزرگ انیمال راش و پنل خدمات بازیکنان؛ عضویت در کلن و گپ روبیکا، رزرو تبلیغات و دسترسی به کاربرگ‌ساز آنلاین دبیران.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://trwyn0915-gif.github.io/mm-clan-site-2026/">
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="application-name" content="خدمات MM">
+<meta name="mobile-web-app-capable" content="yes">
+
 <link rel="icon" type="image/png" sizes="48x48" href="./favicon.png">
 <link rel="apple-touch-icon" href="./favicon.png">
 <meta property="og:type" content="website">
@@ -317,6 +321,13 @@ html,body,button,a{
 @keyframes mmNoticeIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){#mmToolNotice .notice-card{animation:none}}
 
+
+/* Desktop app install action */
+#home .install-app-button{width:100%;min-height:46px;display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 16px;border:1px solid #b9dcd9;border-radius:14px;background:linear-gradient(135deg,#e8f8f6,#fff);color:#145765;font-family:inherit;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 5px 14px rgba(23,61,87,.08)}
+#home .install-app-button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+#home .install-app-button:hover{background:#ddf3f0;border-color:#70c7c0}
+#home .install-app-button:focus-visible{outline:3px solid #42cfc5;outline-offset:3px}
+@media(max-height:700px){#home .install-app-button{min-height:37px;font-size:12px;padding:6px 12px}}
 </style>
 </head>
 <body>
@@ -327,6 +338,7 @@ html,body,button,a{
         <div class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 54 14v16c0 14-9 23-22 29C19 53 10 44 10 30V14L32 5Z"/><path d="m21 32 8 8 15-17"/></svg></div>
         <h1>پنل خدمات اتحادیه MM</h1>
       </header>
+      <button class="install-app-button" id="installAppButton" type="button" aria-label="افزودن پنل خدمات MM به صفحه اصلی ویندوز"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m-4-4 4 4 4-4M4 17v3h16v-3"/></svg><span>افزودن به صفحه اصلی</span></button>
       <section class="choices" aria-label="انتخاب خدمات">
         <button class="choice" type="button" data-page="clan">
       <span class="choice-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 53 13v16c0 14-8.8 23.8-21 30C19.8 52.8 11 43 11 29V13L32 5Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="m21 31 7 7 15-16" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -505,20 +517,58 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
   });
 })();
 
-/* Remove the experimental MM cache worker and its stored pages. */
+/* Register the app service worker so desktop browsers can offer installation. */
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    registrations.forEach(registration => {
-      const worker = registration.active || registration.waiting || registration.installing;
-      if (worker && worker.scriptURL.endsWith('/sw.js')) registration.unregister();
-    });
-  }).catch(() => {});
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(error => console.warn('MM app setup:', error));
+  });
 }
 if ('caches' in window) {
   caches.keys().then(names => Promise.all(
     names.filter(name => name.startsWith('mm-services-pages-')).map(name => caches.delete(name))
   )).catch(() => {});
 }
+
+/* Install prompt and browser-specific desktop shortcut guidance. */
+(function(){
+  const installButton = document.getElementById('installAppButton');
+  const notice = document.getElementById('mmToolNotice');
+  const noticeTitle = document.getElementById('mmToolNoticeTitle');
+  const noticeText = document.getElementById('mmToolNoticeText');
+  let installPrompt = null;
+  function showInstallHelp(title, message){
+    noticeTitle.textContent = title;
+    noticeText.textContent = message;
+    notice.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('mmToolNoticeClose').focus();
+  }
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    installPrompt = event;
+    installButton.querySelector('span').textContent = 'نصب پنل روی کامپیوتر';
+  });
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null;
+    installButton.querySelector('span').textContent = 'پنل نصب شد';
+    installButton.disabled = true;
+    installButton.setAttribute('aria-label','پنل خدمات MM روی کامپیوتر نصب شده است');
+  });
+  installButton.addEventListener('click', async () => {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      showInstallHelp('پنل از قبل نصب شده', 'پنل خدمات MM در حالت برنامه اجرا شده است.');
+      return;
+    }
+    if (installPrompt) {
+      installPrompt.prompt();
+      const result = await installPrompt.userChoice;
+      installPrompt = null;
+      if (result && result.outcome === 'accepted') installButton.querySelector('span').textContent = 'در حال نصب پنل...';
+      return;
+    }
+    showInstallHelp('افزودن پنل به دسکتاپ', 'در مرورگر Google Chrome: از منوی سه‌نقطه گزینه Cast, save and share و سپس Create shortcut را انتخاب کنید. در Microsoft Edge: از منوی سه‌نقطه وارد Apps شوید و Install this site as an app را بزنید. سپس آیکون پنل در دسکتاپ یا فهرست برنامه‌ها قرار می‌گیرد.');
+  });
+})();
 
 </script>
 </body>
