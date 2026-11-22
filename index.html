@@ -358,7 +358,7 @@ html,body,button,a{
             </span>
             <span class="tool-card-title">بازی داستانی RIP (سرگرمی)</span>
           </a>
-          <a class="tool-card" href="https://trwyn0915-gif.github.io/mm-clan/mm-mobile-builder/" target="_blank" rel="noopener noreferrer" aria-label="برنامه نویسی (فارسی)">
+          <a class="tool-card" id="programmingToolCard" href="https://trwyn0915-gif.github.io/mm-clan/mm-mobile-builder/" target="_blank" rel="noopener noreferrer" aria-label="برنامه نویسی (فارسی)">
             <span class="tool-card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="m9 10-2 2 2 2m6-4 2 2-2 2m-3-5-1 6"/></svg>
             </span>
@@ -425,6 +425,15 @@ window.addEventListener('keydown', (event) => {
   }
 });
 history.replaceState({mmView:'home'}, '', location.pathname + location.search);
+
+// On phones, explain that the programming builder is desktop-only and block navigation.
+document.getElementById('programmingToolCard').addEventListener('click', function(event) {
+  const isMobile = /Android|iPhone|iPod|Mobile/i.test(navigator.userAgent);
+  if (isMobile) {
+    event.preventDefault();
+    alert('بخش «برنامه‌نویسی (فارسی)» فقط با کامپیوتر قابل استفاده است. لطفاً با کامپیوتر وارد شوید.');
+  }
+});
 
 /* MM_HOME_BUTTON_SOUND_V1 */
 (function(){
