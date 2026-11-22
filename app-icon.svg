@@ -1,10 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<rect width="512" height="512" fill="#55bddb"/>
-<circle cx="256" cy="256" r="238" fill="#061d48"/>
-<path d="M82 183 256 128 430 183 430 284 397 365Q256 487 115 365L82 284Z" fill="#2b9dc9" stroke="#0b315d" stroke-width="16" stroke-linejoin="round"/>
-<path d="M105 190 256 145 407 190 407 222 105 222Z" fill="#45b5df"/>
-<path d="M179 126 146 58 177 77 199 103 229 95 211 61 256 13 301 61 283 95 313 103 335 77 366 58 333 126 256 105Z" fill="#fff"/>
-<path d="M89 222H166L208 272 256 222 304 272 346 222H423L401 245V362L350 382V290L304 345 256 290 208 345 162 290V382L111 362V245Z" fill="#fff" stroke="#061d48" stroke-width="10" stroke-linejoin="miter"/>
-<path d="M256 220V386" stroke="#061d48" stroke-width="8"/>
-<path d="M125 405Q256 486 387 405" fill="none" stroke="#42b2dc" stroke-width="18"/>
+<rect width="512" height="512" rx="112" fill="#173b5a"/>
+<path d="M256 55 420 116v126c0 108-66 183-164 230C158 425 92 350 92 242V116Z" fill="none" stroke="#42cfc5" stroke-width="30" stroke-linejoin="round"/>
+<path d="m177 253 55 55 108-119" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="256" y="390" font-family="Arial,sans-serif" font-size="58" font-weight="700" text-anchor="middle" fill="#fff">MM</text>
 </svg>
