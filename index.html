@@ -534,16 +534,16 @@ a:focus:not(:focus-visible),
 #mmInstallDialog h2{margin:0 0 9px;color:#102b45;font-size:21px;line-height:1.6;font-weight:900}
 #mmInstallDialog p{margin:0 auto 20px;max-width:330px;color:#52677c;font-size:14px;line-height:2;font-weight:700}
 #mmInstallDialog .mm-install-divider{height:1px;margin:0 0 18px;background:#dce9f7}
-#mmInstallDialog .mm-install-actions{display:flex;gap:10px;align-items:stretch}
+#mmInstallDialog .mm-install-actions{display:flex;gap:10px;align-items:stretch;justify-content:center}
 #mmInstallDialog button{min-height:50px;border:0;border-radius:15px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:900;cursor:pointer}
-#mmInstallConfirm{flex:1;background:linear-gradient(120deg,#087fe5,#073f9c);color:#fff;box-shadow:0 7px 17px rgba(8,78,150,.18)}
+#mmInstallConfirm{flex:0 0 auto;width:auto;min-width:132px;padding:12px 38px;font-size:20px;line-height:1.4;background:linear-gradient(120deg,#087fe5,#073f9c);color:#fff;box-shadow:0 7px 17px rgba(8,78,150,.18)}
 #mmInstallCancel{min-width:92px;background:#eaf0f8;color:#24445d}
 #mmInstallDialog .mm-install-hint{display:none;margin-top:14px;padding:12px;border-radius:13px;background:#edf5fc;color:#294b63;font-size:13px;line-height:2;font-weight:700}
 #mmInstallDialog.show-help .mm-install-hint{display:block}
 #mmInstallDialog.show-help #mmInstallConfirm{display:none}
 #mmInstallDialog .mm-install-close:focus-visible,#mmInstallDialog button:focus-visible{outline:3px solid #47a7f4;outline-offset:3px}
 @keyframes mmInstallIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:360px){#mmInstallDialog .mm-install-card{padding:24px 16px 17px;border-radius:22px}#mmInstallDialog .mm-install-logo{width:92px;height:92px}#mmInstallDialog h2{font-size:18px}#mmInstallDialog p{font-size:13px}#mmInstallDialog button{font-size:13px}}
+@media(max-width:360px){#mmInstallDialog .mm-install-card{padding:24px 16px 17px;border-radius:22px}#mmInstallDialog .mm-install-logo{width:92px;height:92px}#mmInstallDialog h2{font-size:18px}#mmInstallDialog p{font-size:13px}#mmInstallDialog button{font-size:13px}#mmInstallConfirm{font-size:18px;padding:11px 28px;min-width:116px}}
 @media(prefers-reduced-motion:reduce){#mmInstallDialog .mm-install-card{animation:none}}
 
 </style>
