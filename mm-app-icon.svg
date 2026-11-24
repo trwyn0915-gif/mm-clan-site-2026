@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12c9ed"/><stop offset="1" stop-color="#0750bd"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#b)"/><text x="256" y="238" text-anchor="middle" dominant-baseline="middle" font-family="Arial,sans-serif" font-size="190" font-weight="900" letter-spacing="-10" fill="#fff">MM</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#12c9ed"/>
+      <stop offset="1" stop-color="#0750bd"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <path d="M256 48 414 119v151c0 91-62 155-158 197-96-42-158-106-158-197V119L256 48Z"
+        fill="#0b2148" stroke="#58e8f4" stroke-width="12" stroke-linejoin="round"/>
+  <text x="256" y="237" text-anchor="middle" dominant-baseline="middle"
+        font-family="Arial,sans-serif" font-size="154" font-weight="900"
+        letter-spacing="-9" fill="#fff">MM</text>
+</svg>
