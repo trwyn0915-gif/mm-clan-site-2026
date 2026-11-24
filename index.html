@@ -486,7 +486,7 @@ html,body,#app{background:#f2f7fa}
 .site-search{position:relative;width:100%;z-index:20;direction:rtl}
 .site-search-label{display:block;margin:0 4px 6px;color:#29495f;font-size:12px;font-weight:900}
 .site-search-row{display:flex;align-items:center;gap:7px;padding:5px;border:1.5px solid #cbdde5;border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(16,36,61,.06)}
-.site-search-row:focus-within{border-color:#42aaa7;box-shadow:0 0 0 3px rgba(66,207,197,.15)}
+.site-search-row.keyboard-open{border-color:#42aaa7;box-shadow:0 0 0 3px rgba(66,207,197,.15)}
 #siteSearchInput{min-width:0;flex:1;height:43px;padding:0 12px;border:0;outline:0;background:transparent;color:#17324b;font:700 14px Tahoma,Arial,sans-serif;text-align:right}
 #siteSearchInput::placeholder{color:#8295a2;opacity:1}
 #siteSearchInput::-webkit-search-cancel-button{cursor:pointer}
@@ -787,6 +787,38 @@ if ('caches' in window) {
     {title:'برنامه‌نویسی فارسی',type:'ابزارهای کاربردی',target:'#programmingToolCard',terms:['برنامه نویسی','کدنویسی','کد','سایت ساز','طراحی سایت','ساخت سایت','فارسی','ابزار برنامه نویسی','کدنویس','توسعه وب']},
     {title:'پشتیبانی اتحادیه MM',type:'ارتباط با ما',target:'.support-home',terms:['پشتیبانی','کمک','راهنما','ارتباط','تماس','پاسخگویی','مشکل','سوال','پشتیبان mm','ارتباط با پشتیبانی']}
   ];
+  const searchRow=input.closest('.site-search-row');
+  const mobileInput=window.matchMedia('(max-width: 900px) and (pointer: coarse)').matches;
+  let keyboardWasOpen=false;
+  let focusViewportHeight=window.visualViewport?window.visualViewport.height:window.innerHeight;
+  function setKeyboardGlow(open){
+    keyboardWasOpen=!!open;
+    searchRow.classList.toggle('keyboard-open',keyboardWasOpen);
+  }
+  function checkKeyboard(){
+    if(!mobileInput||document.activeElement!==input){setKeyboardGlow(false);return;}
+    const currentHeight=window.visualViewport?window.visualViewport.height:window.innerHeight;
+    setKeyboardGlow(focusViewportHeight-currentHeight>110);
+  }
+  input.addEventListener('focus',()=>{
+    focusViewportHeight=window.visualViewport?window.visualViewport.height:window.innerHeight;
+    setKeyboardGlow(false);
+    if(window.visualViewport) window.visualViewport.addEventListener('resize',checkKeyboard);
+    window.addEventListener('resize',checkKeyboard);
+    setTimeout(checkKeyboard,250);
+    setTimeout(checkKeyboard,500);
+  });
+  input.addEventListener('blur',()=>{
+    setKeyboardGlow(false);
+    if(window.visualViewport) window.visualViewport.removeEventListener('resize',checkKeyboard);
+    window.removeEventListener('resize',checkKeyboard);
+  });
+  input.addEventListener('search',()=>{
+    if(!input.value.trim()){hide();input.blur();setKeyboardGlow(false);}
+  });
+  input.addEventListener('input',()=>{
+    if(!input.value.trim()){hide();input.blur();setKeyboardGlow(false);}
+  });
   function normalize(value){
     return String(value||'').toLocaleLowerCase('fa')
       .replace(/[\u064B-\u065F\u0670]/g,'')
