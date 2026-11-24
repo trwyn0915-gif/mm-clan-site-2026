@@ -1,4 +1,4 @@
-const CACHE_NAME = "mm-services-shell-v5";
+const CACHE_NAME = "mm-services-shell-v6";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./app-icon.svg", "./mm-pwa-icon.svg", "./mm-app-icon.png"];
 
 self.addEventListener("install", event => {
