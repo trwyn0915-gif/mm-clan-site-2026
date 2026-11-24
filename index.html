@@ -10,10 +10,10 @@
 <meta name="description" content="اتحادیه MM، جامعه بزرگ انیمال راش و پنل خدمات بازیکنان؛ عضویت در کلن و گپ روبیکا، رزرو تبلیغات و دسترسی به کاربرگ‌ساز آنلاین دبیران.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://trwyn0915-gif.github.io/mm-clan-site-2026/">
-<link rel="manifest" href="./manifest.webmanifest?v=mm-pwa-v10">
-<link rel="icon" type="image/svg+xml" href="./mm-pwa-icon.svg?v=mm-pwa-v10">
-<link rel="shortcut icon" href="./mm-pwa-icon.svg?v=mm-pwa-v10" type="image/svg+xml">
-<link rel="apple-touch-icon" sizes="512x512" href="./mm-pwa-icon.svg?v=mm-pwa-v10">
+<link rel="manifest" href="./manifest.webmanifest?v=mm-pwa-v11">
+<link rel="icon" type="image/png" sizes="512x512" href="./mm-app-icon.png?v=mm-icon-v11">
+<link rel="shortcut icon" href="./mm-app-icon.png?v=mm-icon-v11" type="image/png">
+<link rel="apple-touch-icon" sizes="512x512" href="./mm-app-icon.png?v=mm-icon-v11">
 <meta name="application-name" content="خدمات MM">
 <meta name="mobile-web-app-capable" content="yes">
 
@@ -525,21 +525,25 @@ a:focus:not(:focus-visible),
 #home .home-inner{height:auto!important;min-height:100%;max-height:none!important;justify-content:flex-start!important;gap:12px}
 
 
-/* MM branded install dialog */
-#mmInstallDialog{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,17,35,.68);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+/* MM install dialog: native responsive layout, using the original high-resolution MM PNG mark. */
+#mmInstallDialog{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(7,22,43,.70);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 #mmInstallDialog.is-open{display:flex}
-#mmInstallDialog .mm-install-card{width:min(100%,390px);padding:26px 22px 20px;border-radius:28px;background:linear-gradient(155deg,#fff 0%,#f0f8fc 100%);border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 70px rgba(0,10,30,.3);text-align:center;animation:mmInstallIn .22s ease-out}
-#mmInstallDialog .mm-install-logo{width:112px;height:112px;object-fit:cover;border-radius:26px;display:block;margin:0 auto 16px;box-shadow:0 9px 24px rgba(7,80,150,.2)}
-#mmInstallDialog h2{margin:0 0 8px;color:#102b45;font-size:22px;font-weight:900}
-#mmInstallDialog p{margin:0 auto 18px;color:#536b7c;font-size:14px;line-height:2;font-weight:700}
-#mmInstallDialog .mm-install-actions{display:flex;gap:10px}
-#mmInstallDialog button{min-height:48px;border:0;border-radius:14px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:900;cursor:pointer}
-#mmInstallConfirm{flex:1;background:linear-gradient(135deg,#0879d8,#073c82);color:#fff;box-shadow:0 6px 16px rgba(8,78,150,.22)}
-#mmInstallCancel{background:#e7eef3;color:#24445d}
-#mmInstallDialog .mm-install-hint{display:none;margin-top:14px;padding:12px;border-radius:14px;background:#e8f4fa;color:#294b63;font-size:13px;line-height:2;font-weight:700}
+#mmInstallDialog .mm-install-card{position:relative;width:min(100%,410px);padding:28px 24px 22px;border:1px solid #e4edf7;border-radius:26px;background:#fff;box-shadow:0 22px 64px rgba(0,12,34,.30);text-align:center;animation:mmInstallIn .2s ease-out}
+#mmInstallDialog .mm-install-close{position:absolute;top:12px;left:12px;width:38px;height:38px;min-height:38px;padding:0;border:0;border-radius:50%;background:#edf3fb;color:#173b5a;font-size:23px;line-height:1}
+#mmInstallDialog .mm-install-logo{display:block;width:108px;height:108px;object-fit:contain;border-radius:24px;margin:4px auto 17px;background:#fff;box-shadow:0 7px 24px rgba(0,82,180,.14)}
+#mmInstallDialog h2{margin:0 0 9px;color:#102b45;font-size:21px;line-height:1.6;font-weight:900}
+#mmInstallDialog p{margin:0 auto 20px;max-width:330px;color:#52677c;font-size:14px;line-height:2;font-weight:700}
+#mmInstallDialog .mm-install-divider{height:1px;margin:0 0 18px;background:#dce9f7}
+#mmInstallDialog .mm-install-actions{display:flex;gap:10px;align-items:stretch}
+#mmInstallDialog button{min-height:50px;border:0;border-radius:15px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:900;cursor:pointer}
+#mmInstallConfirm{flex:1;background:linear-gradient(120deg,#087fe5,#073f9c);color:#fff;box-shadow:0 7px 17px rgba(8,78,150,.18)}
+#mmInstallCancel{min-width:92px;background:#eaf0f8;color:#24445d}
+#mmInstallDialog .mm-install-hint{display:none;margin-top:14px;padding:12px;border-radius:13px;background:#edf5fc;color:#294b63;font-size:13px;line-height:2;font-weight:700}
 #mmInstallDialog.show-help .mm-install-hint{display:block}
 #mmInstallDialog.show-help #mmInstallConfirm{display:none}
-@keyframes mmInstallIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+#mmInstallDialog .mm-install-close:focus-visible,#mmInstallDialog button:focus-visible{outline:3px solid #47a7f4;outline-offset:3px}
+@keyframes mmInstallIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:360px){#mmInstallDialog .mm-install-card{padding:24px 16px 17px;border-radius:22px}#mmInstallDialog .mm-install-logo{width:92px;height:92px}#mmInstallDialog h2{font-size:18px}#mmInstallDialog p{font-size:13px}#mmInstallDialog button{font-size:13px}}
 @media(prefers-reduced-motion:reduce){#mmInstallDialog .mm-install-card{animation:none}}
 
 </style>
@@ -757,8 +761,9 @@ document.addEventListener('DOMContentLoaded', function(){
  const dialog=document.getElementById('mmInstallDialog');
  const confirmButton=document.getElementById('mmInstallConfirm');
  const cancelButton=document.getElementById('mmInstallCancel');
+ const closeButton=document.getElementById('mmInstallClose');
  const description=document.getElementById('mmInstallDescription');
- if(!openButton||!dialog||!confirmButton||!cancelButton) return;
+ if(!openButton||!dialog||!confirmButton||!cancelButton||!closeButton) return;
  let installPrompt=null;
  function closeDialog(){dialog.classList.remove('is-open','show-help');}
  function openDialog(){dialog.classList.add('is-open');}
@@ -782,6 +787,7 @@ document.addEventListener('DOMContentLoaded', function(){
    openDialog();
  });
  cancelButton.addEventListener('click',closeDialog);
+ closeButton.addEventListener('click',closeDialog);
  dialog.addEventListener('click',event=>{if(event.target===dialog)closeDialog();});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&dialog.classList.contains('is-open'))closeDialog();});
  confirmButton.addEventListener('click',async()=>{
@@ -942,14 +948,16 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 <div id="mmInstallDialog" role="dialog" aria-modal="true" aria-labelledby="mmInstallTitle" aria-describedby="mmInstallDescription">
  <div class="mm-install-card">
-  <img class="mm-install-logo" src="./mm-pwa-icon.svg?v=mm-pwa-v10" alt="نشان اتحادیه MM">
+  <button class="mm-install-close" id="mmInstallClose" type="button" aria-label="بستن">×</button>
+  <img class="mm-install-logo" src="./mm-app-icon.png?v=mm-icon-v11" alt="نشان اصلی اتحادیه MM" width="108" height="108">
   <h2 id="mmInstallTitle">پنل خدمات اتحادیه MM</h2>
   <p id="mmInstallDescription">با نصب پنل، خدمات اتحادیه را مستقیم از صفحه اصلی گوشی یا رایانه باز کن.</p>
+  <div class="mm-install-divider" aria-hidden="true"></div>
   <div class="mm-install-actions">
    <button id="mmInstallConfirm" type="button">نصب پنل MM</button>
    <button id="mmInstallCancel" type="button">بعداً</button>
   </div>
-  <div class="mm-install-hint" id="mmInstallHint">برای نصب، منوی سه‌نقطه مرورگر را باز کن و گزینه «نصب برنامه» یا «افزودن به صفحه اصلی» را انتخاب کن.</div>
+  <div class="mm-install-hint" id="mmInstallHint">برای نصب، منوی مرورگر را باز کن و گزینه «نصب برنامه» یا «افزودن به صفحه اصلی» را انتخاب کن.</div>
  </div>
 </div>
 </body>
