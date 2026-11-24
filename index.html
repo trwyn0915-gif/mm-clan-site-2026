@@ -61,6 +61,8 @@ body{overflow:hidden}
 #viewer{display:none;position:absolute;inset:0;padding-top:0;background:var(--paper)}
 #contentFrame{display:block;width:100%;height:100%;border:0;background:var(--paper)}
 #viewer.active{display:block}
+/* Hide the previous iframe page while the next service is loading. */
+#viewer.loading #contentFrame{visibility:hidden}
 #home.hidden{display:none}
 @media(min-width:600px){#home{padding-top:18px}.choice{min-height:100px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -650,6 +652,8 @@ let currentPage = null;
 function showPage(key, addHistory=true) {
   if (!pages[key]) return;
   currentPage = key;
+  // Keep the previous iframe page hidden until the requested page finishes loading.
+  viewer.classList.add('loading');
   // Replace the iframe's initial document instead of adding a second
   // browser-history entry. This makes the device Back button return home once.
   try {
@@ -661,6 +665,9 @@ function showPage(key, addHistory=true) {
   viewer.classList.add('active');
   if (addHistory) history.pushState({mmView:key}, '', '#'+key);
 }
+frame.addEventListener('load', () => {
+  viewer.classList.remove('loading');
+});
 function showHome(fromPop=false) {
   home.scrollTop = 0;
   currentPage = null;
