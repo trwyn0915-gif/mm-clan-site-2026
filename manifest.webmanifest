@@ -13,13 +13,13 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "./mm-app-icon.png?v=mm-icon-v11",
+      "src": "./mm-app-icon.svg?v=mm-icon-v12",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./mm-app-icon.png?v=mm-icon-v11",
+      "src": "./mm-app-icon.svg?v=mm-icon-v12",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
