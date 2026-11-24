@@ -732,58 +732,56 @@ if ('caches' in window) {
   )).catch(() => {});
 }
 
-/* Prefer the native install prompt when the browser supports it.
-   Show manual home-screen instructions only when direct installation is unavailable. */
+/* Native PWA install: wait for service-worker readiness and the browser prompt.
+   Never replace the native install dialog with manual-instructions popups. */
 (function(){
-  const installButton = document.getElementById('installAppButton');
-  const notice = document.getElementById('mmToolNotice');
-  const noticeTitle = document.getElementById('mmToolNoticeTitle');
-  const noticeText = document.getElementById('mmToolNoticeText');
-  let installPrompt = null;
-  function showInstallHelp(title, message){
-    noticeTitle.textContent = title;
-    noticeText.textContent = message;
-    notice.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    document.getElementById('mmToolNoticeClose').focus();
-  }
-  window.addEventListener('beforeinstallprompt', event => {
+  const installButton=document.getElementById('installAppButton');
+  if(!installButton) return;
+  const label=installButton.querySelector('span');
+  let installPrompt=null;
+  let promptWaiters=[];
+  window.addEventListener('beforeinstallprompt',event=>{
     event.preventDefault();
-    installPrompt = event;
+    installPrompt=event;
+    promptWaiters.splice(0).forEach(resolve=>resolve());
   });
-  window.addEventListener('appinstalled', () => {
-    installPrompt = null;
-    installButton.querySelector('span').textContent = 'پنل اضافه شد';
+  window.addEventListener('appinstalled',()=>{
+    installPrompt=null;
+    if(label) label.textContent='پنل اضافه شد';
+    installButton.disabled=true;
   });
-  installButton.addEventListener('click', async () => {
-    if (window.matchMedia('(display-mode: standalone)').matches ||
-        window.navigator.standalone === true) {
-      showInstallHelp('پنل از قبل اضافه شده', 'پنل خدمات MM در حالت برنامه اجرا شده است.');
+  installButton.addEventListener('click',async()=>{
+    if(window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true){
+      if(label) label.textContent='پنل اضافه شد';
       return;
     }
-    if (installPrompt) {
-      const promptEvent = installPrompt;
-      installPrompt = null;
-      await promptEvent.prompt();
-      const result = await promptEvent.userChoice;
-      if (result && result.outcome === 'accepted') {
-        installButton.querySelector('span').textContent = 'در حال افزودن پنل...';
+    installButton.disabled=true;
+    try{
+      if('serviceWorker' in navigator){
+        await navigator.serviceWorker.ready;
       }
-      return;
-    }
-    const ua = navigator.userAgent;
-    if (/SamsungBrowser/i.test(ua)) {
-      showInstallHelp('افزودن به صفحه اصلی', 'در مرورگر سامسونگ، منوی سه‌خط را باز کنید، گزینه «افزودن صفحه به» و سپس «صفحه اصلی» را انتخاب کنید.');
-    } else if (/iPhone|iPad|iPod/i.test(ua)) {
-      showInstallHelp('افزودن به صفحه اصلی', 'در Safari دکمه اشتراک‌گذاری را بزنید، گزینه «افزودن به صفحه اصلی» را انتخاب و سپس «افزودن» را بزنید.');
-    } else if (/Android/i.test(ua)) {
-      showInstallHelp('افزودن به صفحه اصلی', 'در Chrome منوی سه‌نقطه را باز کنید و «افزودن به صفحه اصلی» را انتخاب کنید. اگر گزینه نصب پنل نمایش داده شد، آن را تأیید کنید.');
-    } else {
-      showInstallHelp('افزودن میانبر پنل', 'از منوی مرورگر گزینه «ایجاد میانبر» یا «افزودن به صفحه اصلی» را انتخاب کنید.');
+      if(!installPrompt){
+        await Promise.race([
+          new Promise(resolve=>promptWaiters.push(resolve)),
+          new Promise(resolve=>setTimeout(resolve,1800))
+        ]);
+      }
+      if(!installPrompt) return;
+      const event=installPrompt;
+      installPrompt=null;
+      await event.prompt();
+      const choice=await event.userChoice;
+      if(choice && choice.outcome==='accepted'){
+        if(label) label.textContent='در حال نصب پنل...';
+      }
+    }catch(error){
+      console.warn('MM install prompt:',error);
+    }finally{
+      installButton.disabled=false;
     }
   });
 })();
-
+ 
 // MM site-wide keyword search: each destination has its own Persian search terms.
 (function(){
   const input=document.getElementById('siteSearchInput');
