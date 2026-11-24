@@ -13,9 +13,9 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "./mm-app-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "./mm-app-icon.png?v=mm-user-logo-20261124",
+      "sizes": "256x256",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
