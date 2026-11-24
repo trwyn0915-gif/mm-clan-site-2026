@@ -481,6 +481,29 @@ html,body,#app{background:#f2f7fa}
   #home .choices{grid-template-columns:1fr!important}
 }
 @media(prefers-reduced-motion:reduce){#home *{transition:none!important}}
+ 
+/* MM quick search */
+.site-search{position:relative;width:100%;z-index:20;direction:rtl}
+.site-search-label{display:block;margin:0 4px 6px;color:#29495f;font-size:12px;font-weight:900}
+.site-search-row{display:flex;align-items:center;gap:7px;padding:5px;border:1.5px solid #cbdde5;border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(16,36,61,.06)}
+.site-search-row:focus-within{border-color:#42aaa7;box-shadow:0 0 0 3px rgba(66,207,197,.15)}
+#siteSearchInput{min-width:0;flex:1;height:43px;padding:0 12px;border:0;outline:0;background:transparent;color:#17324b;font:700 14px Tahoma,Arial,sans-serif;text-align:right}
+#siteSearchInput::placeholder{color:#8295a2;opacity:1}
+#siteSearchInput::-webkit-search-cancel-button{cursor:pointer}
+#siteSearchButton{width:44px;height:43px;flex:0 0 44px;display:grid;place-items:center;border:0;border-radius:12px;background:#173b5a;color:#fff;cursor:pointer}
+#siteSearchButton svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.site-search-results{position:absolute;top:100%;right:0;left:0;z-index:30;max-height:min(42vh,300px);overflow:auto;margin-top:7px;padding:7px;border:1px solid #d7e4eb;border-radius:15px;background:#fff;box-shadow:0 14px 32px rgba(16,36,61,.16)}
+.site-search-results[hidden]{display:none}
+.site-search-result{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;border:0;border-radius:10px;background:#fff;color:#17324b;text-align:right;font:800 13px/1.6 Tahoma,Arial,sans-serif;cursor:pointer}
+.site-search-result+.site-search-result{border-top:1px solid #edf1f4}
+.site-search-result:active,.site-search-result:hover{background:#eef8f7}
+.site-search-result small{display:block;margin-top:2px;color:#718696;font-size:10px;font-weight:700}
+.site-search-empty{padding:13px 10px;color:#647987;text-align:center;font-size:12px;font-weight:700}
+@media(max-width:390px){.site-search-label{font-size:11px}#siteSearchInput{font-size:12px;height:40px}#siteSearchButton{height:40px;width:41px;flex-basis:41px}}
+/* Keep the expanded homepage comfortably scrollable as new services are added. */
+#home{overflow-x:hidden!important;overflow-y:auto!important;justify-content:flex-start!important}
+#home .home-inner{height:auto!important;min-height:100%;max-height:none!important;justify-content:flex-start!important;gap:12px}
+
 </style>
 </head>
 <body>
@@ -491,6 +514,14 @@ html,body,#app{background:#f2f7fa}
         <div class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 54 14v16c0 14-9 23-22 29C19 53 10 44 10 30V14L32 5Z"/><path d="m21 32 8 8 15-17"/></svg></div>
         <h1>پنل خدمات اتحادیه MM</h1>
       </header>
+      <section class="site-search" role="search" aria-label="جستجوی خدمات و ابزارها">
+        <label class="site-search-label" for="siteSearchInput">جستجو در پنل خدمات MM</label>
+        <div class="site-search-row">
+          <input id="siteSearchInput" type="search" placeholder="نام خدمت، ابزار یا کلمه کلیدی..." autocomplete="off" enterkeyhint="search" aria-controls="siteSearchResults" aria-expanded="false">
+          <button id="siteSearchButton" type="button" aria-label="جستجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+        </div>
+        <div id="siteSearchResults" class="site-search-results" role="region" aria-live="polite" hidden></div>
+      </section>
       <button class="install-app-button" id="installAppButton" type="button" aria-label="افزودن پنل به میانبر"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m-4-4 4 4 4-4M4 17v3h16v-3"/></svg><span>افزودن پنل به میانبر</span></button>
       <section class="choices" aria-label="انتخاب خدمات">
         <button class="choice" type="button" data-page="clan">
@@ -733,6 +764,104 @@ if ('caches' in window) {
     }
   });
 })();
+
+// MM site-wide keyword search: each destination has its own Persian search terms.
+(function(){
+  const input=document.getElementById('siteSearchInput');
+  const button=document.getElementById('siteSearchButton');
+  const results=document.getElementById('siteSearchResults');
+  if(!input||!button||!results) return;
+  const entries=[
+    {title:'عضویت در کلن انیمال راش MM',type:'خدمات اتحادیه',target:'.choice[data-page="clan"]',terms:['عضویت','کلن','انیمال راش','تگ','بازیکن','پیوستن','تیم','اتحاد','عضوگیری','کلن mm']},
+    {title:'عضویت در گپ روبیکای اتحادیه MM',type:'خدمات اتحادیه',target:'.choice[data-page="chat"]',terms:['گپ','روبیکا','چت','گفتگو','گروه','پیام','ارتباط','جمع دوستان','گروه mm','عضویت گپ']},
+    {title:'رزرو تبلیغات در چنل اتحادیه MM',type:'خدمات اتحادیه',target:'.choice[data-page="ads"]',terms:['تبلیغات','تبلیغ','رزرو','آگهی','سفارش تبلیغ','معرفی کسب و کار','انتشار','چنل','تبلیغ در روبیکا','ثبت تبلیغ']},
+    {title:'شبکه‌های اجتماعی اتحادیه MM',type:'شبکه‌های اجتماعی',target:'.social-panel',terms:['شبکه اجتماعی','صفحات اجتماعی','دنبال کردن','ارتباط با ما','رسانه','شبکه ها','صفحه رسمی','فضای مجازی','کانال های ما','شبکه‌های اتحادیه']},
+    {title:'استریم',type:'شبکه‌های اجتماعی',target:'.social-link[href="https://B2n.ir/yh6234"]',terms:['استریم','پخش زنده','لایو','تماشای استریم','ویدیو زنده','بث زنده','استریمر','پخش بازی','تماشا','رسانه زنده']},
+    {title:'آپارات',type:'شبکه‌های اجتماعی',target:'.social-link[href="https://B2n.ir/bu4186"]',terms:['آپارات','ویدیو','فیلم','کلیپ','ویدیوهای mm','تماشای ویدیو','فیلم بازی','ویدیو انیمال راش','کانال آپارات','ویدیو آموزشی']},
+    {title:'حمایت مالی',type:'شبکه‌های اجتماعی',target:'.social-link[href="https://B2n.ir/zx6833"]',terms:['حمایت مالی','حمایت','کمک مالی','پشتیبانی مالی','حامی','پرداخت حمایت','کمک به اتحادیه','حمایت از mm','اسپانسر','پشتیبان']},
+    {title:'اینستاگرام',type:'شبکه‌های اجتماعی',target:'.social-link[href="https://B2n.ir/ye9736"]',terms:['اینستاگرام','instagram','پیج','عکس','استوری','پست','صفحه اینستا','پیج mm','شبکه عکس','دنبال کردن اینستا']},
+    {title:'روبینو',type:'شبکه‌های اجتماعی',target:'.social-link[href="https://B2n.ir/rf2290"]',terms:['روبینو','روبیکا','پست روبینو','صفحه روبینو','عکس روبینو','استوری روبینو','پیج روبیکا','دنبال کردن روبینو','شبکه روبیکا','روبینو mm']},
+    {title:'چنل روبیکا',type:'شبکه‌های اجتماعی',target:'.social-link[href="https://rubika.ir/AnimalRush_MM"]',terms:['چنل روبیکا','کانال روبیکا','کانال','اخبار','اطلاعیه','خبرهای اتحادیه','انیمال راش mm','کانال mm','عضویت کانال','اخبار بازی']},
+    {title:'کاربرگ‌ساز آنلاین دبیران',type:'ابزارهای کاربردی',target:'.tool-card[href*="kargbarg"]',terms:['کاربرگ','کاربرگ ساز','دبیر','دبیران','معلم','سوال امتحانی','برگه تمرین','آزمون','طراحی سوال','چاپ کاربرگ']},
+    {title:'بازی داستانی RIP',type:'ابزارهای کاربردی',target:'#ripToolCard',terms:['بازی','rip','سرگرمی','داستانی','بازی داستانی','ماجراجویی','داستان','سرگرمی آنلاین','بازی rip','روایت']},
+    {title:'برنامه‌نویسی فارسی',type:'ابزارهای کاربردی',target:'#programmingToolCard',terms:['برنامه نویسی','کدنویسی','کد','سایت ساز','طراحی سایت','ساخت سایت','فارسی','ابزار برنامه نویسی','کدنویس','توسعه وب']},
+    {title:'پشتیبانی اتحادیه MM',type:'ارتباط با ما',target:'.support-home',terms:['پشتیبانی','کمک','راهنما','ارتباط','تماس','پاسخگویی','مشکل','سوال','پشتیبان mm','ارتباط با پشتیبانی']}
+  ];
+  function normalize(value){
+    return String(value||'').toLocaleLowerCase('fa')
+      .replace(/[\u064B-\u065F\u0670]/g,'')
+      .replace(/[يى]/g,'ی').replace(/ك/g,'ک')
+      .replace(/[ۀة]/g,'ه').replace(/[ـ]/g,'')
+      .replace(/\s+/g,' ').trim();
+  }
+  function score(entry,q){
+    const title=normalize(entry.title),terms=entry.terms.map(normalize);
+    if(title===q) return 100;
+    if(title.includes(q)) return 80;
+    let best=0;
+    for(const term of terms){
+      if(term===q) best=Math.max(best,70);
+      else if(term.includes(q)||q.includes(term)) best=Math.max(best,45);
+      else {
+        const words=q.split(' ');
+        const matched=words.filter(word=>word.length>1&&(term.includes(word)||title.includes(word))).length;
+        if(matched) best=Math.max(best,matched*12);
+      }
+    }
+    return best;
+  }
+  function hide(){results.hidden=true;results.innerHTML='';input.setAttribute('aria-expanded','false');}
+  function openTarget(entry){
+    const target=document.querySelector(entry.target);
+    if(!target){hide();return;}
+    hide();
+    if(target.matches('.choice')) target.click();
+    else if(target.matches('a')) target.click();
+    else {
+      target.scrollIntoView({behavior:'smooth',block:'center'});
+      target.setAttribute('tabindex','-1');
+      target.focus({preventScroll:true});
+    }
+  }
+  function search(){
+    const q=normalize(input.value);
+    results.innerHTML='';
+    if(!q){hide();return;}
+    const matches=entries.map(entry=>({entry,score:score(entry,q)}))
+      .filter(item=>item.score>0)
+      .sort((a,b)=>b.score-a.score).slice(0,7);
+    if(!matches.length){
+      const empty=document.createElement('div');
+      empty.className='site-search-empty';
+      empty.textContent='موردی پیدا نشد؛ کلمه دیگری امتحان کن.';
+      results.appendChild(empty);
+    }else{
+      matches.forEach(({entry})=>{
+        const item=document.createElement('button');
+        item.type='button';item.className='site-search-result';
+        const label=document.createElement('span');label.textContent=entry.title;
+        const kind=document.createElement('small');kind.textContent=entry.type;
+        label.appendChild(kind);
+        const arrow=document.createElement('span');arrow.textContent='‹';arrow.setAttribute('aria-hidden','true');
+        item.append(label,arrow);
+        item.addEventListener('click',()=>openTarget(entry));
+        results.appendChild(item);
+      });
+    }
+    results.hidden=false;
+    input.setAttribute('aria-expanded','true');
+  }
+  input.addEventListener('input',search);
+  input.addEventListener('keydown',event=>{
+    if(event.key==='Enter'){event.preventDefault();search();const first=results.querySelector('.site-search-result');if(first) first.click();}
+    if(event.key==='Escape') hide();
+  });
+  button.addEventListener('click',search);
+  document.addEventListener('click',event=>{
+    if(!event.target.closest('.site-search')) hide();
+  });
+})();
+
 </script>
 </body>
 </html>
