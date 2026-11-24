@@ -682,13 +682,14 @@ if ('caches' in window) {
   )).catch(() => {});
 }
 
-/* Add a home-screen shortcut with browser-specific instructions.
-   Browsers control shortcut placement; do not trigger PWA installation here. */
+/* Prefer the native install prompt when the browser supports it.
+   Show manual home-screen instructions only when direct installation is unavailable. */
 (function(){
   const installButton = document.getElementById('installAppButton');
   const notice = document.getElementById('mmToolNotice');
   const noticeTitle = document.getElementById('mmToolNoticeTitle');
   const noticeText = document.getElementById('mmToolNoticeText');
+  let installPrompt = null;
   function showInstallHelp(title, message){
     noticeTitle.textContent = title;
     noticeText.textContent = message;
@@ -696,21 +697,39 @@ if ('caches' in window) {
     document.body.style.overflow = 'hidden';
     document.getElementById('mmToolNoticeClose').focus();
   }
-  installButton.addEventListener('click', () => {
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    installPrompt = event;
+  });
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null;
+    installButton.querySelector('span').textContent = 'پنل اضافه شد';
+  });
+  installButton.addEventListener('click', async () => {
     if (window.matchMedia('(display-mode: standalone)').matches ||
         window.navigator.standalone === true) {
-      showInstallHelp('میانبر پنل فعال است', 'پنل در حال حاضر به‌صورت برنامه باز شده است. برای قرار دادن آیکون آن روی صفحه اصلی، از فهرست برنامه‌های گوشی گزینه افزودن به صفحه اصلی را انتخاب کنید.');
+      showInstallHelp('پنل از قبل اضافه شده', 'پنل خدمات MM در حالت برنامه اجرا شده است.');
+      return;
+    }
+    if (installPrompt) {
+      const promptEvent = installPrompt;
+      installPrompt = null;
+      await promptEvent.prompt();
+      const result = await promptEvent.userChoice;
+      if (result && result.outcome === 'accepted') {
+        installButton.querySelector('span').textContent = 'در حال افزودن پنل...';
+      }
       return;
     }
     const ua = navigator.userAgent;
     if (/SamsungBrowser/i.test(ua)) {
-      showInstallHelp('افزودن به صفحه اصلی', 'در مرورگر سامسونگ، منوی سه‌خط را باز کنید، گزینه «افزودن صفحه به» و سپس «صفحه اصلی» را انتخاب کنید. در پایان «افزودن» را بزنید.');
+      showInstallHelp('افزودن به صفحه اصلی', 'در مرورگر سامسونگ، منوی سه‌خط را باز کنید، گزینه «افزودن صفحه به» و سپس «صفحه اصلی» را انتخاب کنید.');
     } else if (/iPhone|iPad|iPod/i.test(ua)) {
-      showInstallHelp('افزودن به صفحه اصلی', 'در Safari دکمه اشتراک‌گذاری را بزنید، گزینه «Add to Home Screen» یا «افزودن به صفحه اصلی» را انتخاب کنید و سپس «Add» را بزنید.');
+      showInstallHelp('افزودن به صفحه اصلی', 'در Safari دکمه اشتراک‌گذاری را بزنید، گزینه «افزودن به صفحه اصلی» را انتخاب و سپس «افزودن» را بزنید.');
     } else if (/Android/i.test(ua)) {
-      showInstallHelp('افزودن میانبر به صفحه اصلی', 'در مرورگر Chrome منوی سه‌نقطه را باز کنید، «افزودن به صفحه اصلی» یا «Add to home screen» را انتخاب کنید. اگر گزینه «ایجاد میانبر» نمایش داده شد، آن را انتخاب و در پایان «افزودن» را بزنید. گزینه «نصب برنامه» را انتخاب نکنید.');
+      showInstallHelp('افزودن به صفحه اصلی', 'در Chrome منوی سه‌نقطه را باز کنید و «افزودن به صفحه اصلی» را انتخاب کنید. اگر گزینه نصب پنل نمایش داده شد، آن را تأیید کنید.');
     } else {
-      showInstallHelp('افزودن میانبر پنل', 'از منوی مرورگر گزینه «ایجاد میانبر» یا «افزودن به صفحه اصلی» را انتخاب کنید. در رایانه می‌توانید از گزینه ساخت میانبر یا نصب سایت در منوی مرورگر استفاده کنید.');
+      showInstallHelp('افزودن میانبر پنل', 'از منوی مرورگر گزینه «ایجاد میانبر» یا «افزودن به صفحه اصلی» را انتخاب کنید.');
     }
   });
 })();
