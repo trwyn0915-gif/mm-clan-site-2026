@@ -329,187 +329,158 @@ html,body,button,a{
 #home .install-app-button:focus-visible{outline:3px solid #42cfc5;outline-offset:3px}
 @media(max-height:700px){#home .install-app-button{min-height:37px;font-size:12px;padding:6px 12px}}
 
-/* MM DASHBOARD VISUAL REFRESH */
+/* Restore the original MM dashboard appearance from the user's reference screenshot */
 :root{
   --navy:#102b45;
-  --navy2:#1b4967;
+  --navy2:#173957;
   --cyan:#2aa9a4;
   --paper:#f2f7fa;
   --ink:#17364f;
 }
-html,body,#app{background:linear-gradient(145deg,#f5f9fc 0%,#edf5f7 52%,#f7fafc 100%)}
+html,body,#app{background:#f2f7fa}
 #home{
   overflow-y:auto!important;
   overscroll-behavior-y:contain;
-  padding:clamp(16px,3vh,30px) 16px max(22px,env(safe-area-inset-bottom))!important;
-  background:
-    radial-gradient(ellipse at 8% 4%,rgba(64,190,184,.10),transparent 34%),
-    radial-gradient(ellipse at 94% 28%,rgba(35,87,126,.08),transparent 32%);
+  padding:32px 22px max(28px,env(safe-area-inset-bottom))!important;
+  justify-content:flex-start!important;
 }
 #home .home-inner{
-  width:min(100%,720px)!important;
+  width:min(100%,665px)!important;
   height:auto!important;
-  min-height:100%!important;
+  min-height:0!important;
   max-height:none!important;
   flex:0 0 auto!important;
   justify-content:flex-start!important;
-  gap:clamp(13px,2.2vh,21px)!important;
-  padding:5px 0 12px!important;
+  gap:30px!important;
+  padding:0 0 4px!important;
 }
-#home .brand{margin:0 0 2px!important}
+#home .brand{margin:0!important;transform:none!important}
 #home .brand h1{
-  padding:11px 22px!important;
-  border:1.5px solid #c7d9e3!important;
-  border-radius:18px!important;
-  background:linear-gradient(135deg,#fff,#f7fbfd)!important;
-  color:#102b45!important;
-  font-size:clamp(21px,5.5vw,29px)!important;
-  line-height:1.5!important;
-  letter-spacing:-.35px;
-  box-shadow:0 10px 28px rgba(20,54,78,.09),inset 0 1px #fff!important;
+  padding:8px 20px!important;
+  border:2px solid #17364f!important;
+  border-radius:22px!important;
+  background:#fff!important;
+  color:#17364f!important;
+  font-size:clamp(25px,5.2vw,34px)!important;
+  line-height:1.55!important;
+  box-shadow:0 5px 12px rgba(23,50,75,.07)!important;
 }
 #home .install-app-button{
-  min-height:62px!important;
-  border:1px solid #b9dcd9!important;
-  border-radius:19px!important;
-  background:linear-gradient(110deg,#e6f7f5,#fff 75%)!important;
+  min-height:84px!important;
+  border:1px solid #c5dfdd!important;
+  border-radius:27px!important;
+  background:linear-gradient(110deg,#e9f8f6,#fff 78%)!important;
   color:#17636a!important;
-  font-size:clamp(15px,3.8vw,18px)!important;
-  box-shadow:0 9px 22px rgba(28,100,105,.08)!important;
-  transition:transform .2s,box-shadow .2s,border-color .2s;
+  font-size:clamp(20px,4vw,25px)!important;
+  box-shadow:0 8px 22px rgba(28,100,105,.07)!important;
 }
-#home .install-app-button:hover{transform:translateY(-2px);box-shadow:0 13px 26px rgba(28,100,105,.13)!important}
-#home .choices{gap:11px!important;grid-auto-rows:auto!important}
+#home .choices{gap:12px!important;grid-auto-rows:auto!important}
 #home .choice{
-  min-height:86px!important;
-  padding:13px 16px!important;
-  gap:14px!important;
-  border:1px solid #dce7ee!important;
-  border-radius:21px!important;
-  background:linear-gradient(135deg,#fff 0%,#fbfdff 100%)!important;
-  box-shadow:0 8px 22px rgba(21,53,77,.065),inset 0 1px #fff!important;
-  transition:transform .2s,border-color .2s,box-shadow .2s!important;
-}
-#home .choice:hover{
-  transform:translateY(-2px);
-  border-color:#9bd6d1!important;
-  box-shadow:0 13px 28px rgba(21,53,77,.11)!important;
-}
-#home .choice:active{transform:scale(.985)}
-#home .choice-icon{
-  width:54px!important;height:54px!important;flex-basis:54px!important;
-  border-radius:17px!important;
-  background:linear-gradient(145deg,#214e70,#102b45)!important;
-  box-shadow:0 6px 13px rgba(16,43,69,.17);
-}
-#home .choice-icon svg{width:31px!important;height:31px!important}
-#home .choice-title{font-size:clamp(14px,3.8vw,17px)!important;line-height:1.65!important;color:#183951!important}
-#home .choice-arrow{font-size:29px!important;color:#269e9e!important}
-#home .union-card{
-  border:1px solid #cce5e2!important;
-  border-right:5px solid #299e9c!important;
-  border-radius:19px!important;
-  padding:14px 16px!important;
-  background:linear-gradient(115deg,#eaf8f6,#fff 85%)!important;
-  color:#31566a!important;
-  font-size:clamp(12px,3.3vw,14px)!important;
-  line-height:1.95!important;
-  box-shadow:0 7px 19px rgba(32,111,109,.055);
-}
-#home .union-card .union-icon{
-  background:#d8f0ed!important;color:#187f82!important;
-  border-radius:10px!important;
-}
-#home .social-panel{
+  min-height:99px!important;
+  padding:14px 18px!important;
+  gap:16px!important;
   border:1px solid #dce7ed!important;
-  border-radius:20px!important;
-  padding:16px!important;
-  background:rgba(255,255,255,.94)!important;
-  box-shadow:0 8px 23px rgba(21,53,77,.055);
+  border-radius:27px!important;
+  background:#fff!important;
+  box-shadow:0 7px 20px rgba(21,53,77,.045)!important;
 }
-#home .social-panel h2{font-size:clamp(14px,3.7vw,17px)!important;color:#173b56!important}
-#home .social-panel p{font-size:clamp(11px,3vw,13px)!important;color:#718695!important;margin:5px 0 13px!important}
-#home .social-links{gap:9px!important}
+#home .choice-icon{
+  width:70px!important;height:70px!important;flex-basis:70px!important;
+  border-radius:22px!important;
+  background:linear-gradient(145deg,#173b5a,#10243d)!important;
+  box-shadow:none!important;
+}
+#home .choice-icon svg{width:40px!important;height:40px!important}
+#home .choice-title{font-size:clamp(17px,3.6vw,22px)!important;line-height:1.6!important;color:#17364f!important}
+#home .choice-arrow{font-size:32px!important;color:#319fa2!important}
+#home .union-card{
+  border:1px solid #cfe5e2!important;
+  border-right:6px solid #299e9c!important;
+  border-radius:28px!important;
+  padding:17px 20px!important;
+  background:linear-gradient(115deg,#edf9f7,#fff 85%)!important;
+  color:#31566a!important;
+  font-size:clamp(15px,3vw,19px)!important;
+  line-height:1.9!important;
+  box-shadow:none!important;
+}
+#home .union-card .union-icon{background:#def3f0!important;color:#218b89!important;border-radius:50%!important}
+#home .social-panel{
+  border:1px solid #dce6ec!important;
+  border-radius:27px!important;
+  padding:17px 14px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+#home .social-panel h2{font-size:clamp(18px,3.7vw,23px)!important;color:#17364f!important}
+#home .social-panel p{font-size:clamp(14px,2.8vw,17px)!important;color:#657d8c!important;margin:6px 0 15px!important}
+#home .social-links{gap:10px!important}
 #home .social-link{
-  min-height:43px!important;
-  border:1px solid #e0e9ee!important;
-  border-radius:13px!important;
-  background:linear-gradient(145deg,#f6f9fb,#edf3f6)!important;
-  color:#29465a!important;
-  font-size:clamp(11px,3vw,13px)!important;
-  transition:transform .18s,border-color .18s,background .18s!important;
+  min-height:53px!important;
+  border:1px solid #dce3e7!important;
+  border-radius:20px!important;
+  background:#f0f3f5!important;
+  color:#253746!important;
+  font-size:clamp(14px,2.8vw,18px)!important;
 }
-#home .social-link:hover{transform:translateY(-2px);background:#e8f6f4!important;border-color:#a9d9d4!important}
 #home .user-tools{margin:0!important}
-#home .user-tools h2{
-  margin:0 0 11px!important;
-  font-size:clamp(16px,4vw,19px)!important;
-  color:#173b56!important;
-}
+#home .user-tools h2{margin:0 0 14px!important;font-size:clamp(19px,3.8vw,24px)!important;color:#17364f!important}
 #home .tools-grid{
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:10px!important;
+  grid-template-columns:repeat(3,minmax(0,158px))!important;
+  justify-content:end!important;
+  gap:11px!important;
 }
 #home .tool-card{
-  aspect-ratio:1/1.08!important;
-  padding:12px 7px!important;
+  aspect-ratio:1/1!important;
+  padding:12px 8px!important;
   gap:9px!important;
-  border:1px solid #dce7ee!important;
-  border-radius:19px!important;
-  background:linear-gradient(145deg,#fff,#f8fbfd)!important;
-  box-shadow:0 8px 21px rgba(21,53,77,.07)!important;
-  transition:transform .2s,border-color .2s,box-shadow .2s!important;
-}
-#home .tool-card:hover{
-  transform:translateY(-3px);
-  border-color:#a9d7d4!important;
-  box-shadow:0 13px 26px rgba(21,53,77,.12)!important;
+  border:1px solid #dce6ec!important;
+  border-radius:24px!important;
+  background:#fff!important;
+  box-shadow:0 7px 20px rgba(21,53,77,.045)!important;
 }
 #home .tool-card-icon{
-  width:49px!important;height:49px!important;
-  border-radius:15px!important;
-  background:linear-gradient(145deg,#214e70,#102b45)!important;
-  box-shadow:0 6px 13px rgba(16,43,69,.16);
+  width:63px!important;height:63px!important;border-radius:20px!important;
+  background:linear-gradient(145deg,#173b5a,#10243d)!important;
+  box-shadow:none!important;
 }
-#home .tool-card-icon svg{width:27px!important;height:27px!important}
-#home .tool-card-title{
-  font-size:clamp(10px,3vw,13px)!important;
-  line-height:1.6!important;color:#203e55!important;
-}
-#home .home-actions{margin:0!important}
+#home .tool-card-icon svg{width:34px!important;height:34px!important}
+#home .tool-card-title{font-size:clamp(13px,2.5vw,17px)!important;line-height:1.55!important;color:#20384a!important}
+#home .home-actions{margin:0!important;justify-content:center!important}
 #home .support-home{
-  min-width:142px!important;height:48px!important;
-  border:1px solid #102b45!important;
-  border-radius:15px!important;
-  background:linear-gradient(135deg,#1d4564,#10243d)!important;
-  box-shadow:0 8px 18px rgba(16,36,61,.18)!important;
-  transition:transform .2s,box-shadow .2s;
+  min-width:192px!important;height:71px!important;padding:0 24px!important;
+  border:0!important;border-radius:999px!important;
+  background:#111!important;box-shadow:none!important;
 }
-#home .support-home:hover{transform:translateY(-2px);box-shadow:0 12px 22px rgba(16,36,61,.23)!important}
-#home .support-label{font-size:14px!important}
-#home .home-footer{margin-top:2px!important;color:#8ca0ad!important}
-#home button:focus-visible,#home a:focus-visible{outline:3px solid #36b6ad!important;outline-offset:3px!important}
-@media(max-width:390px){
-  #home{padding-left:12px!important;padding-right:12px!important}
-  #home .home-inner{gap:12px!important}
-  #home .choice{min-height:76px!important;padding:10px 12px!important}
-  #home .choice-icon{width:47px!important;height:47px!important;flex-basis:47px!important}
-  #home .tool-card{padding:9px 5px!important}
-  #home .tool-card-icon{width:43px!important;height:43px!important}
+#home .support-home svg{width:34px!important;height:34px!important}
+#home .support-label{font-size:21px!important}
+#home .home-footer{display:none!important}
+@media(max-width:480px){
+  #home{padding:24px 14px max(24px,env(safe-area-inset-bottom))!important}
+  #home .home-inner{gap:20px!important}
+  #home .brand h1{font-size:clamp(21px,6vw,29px)!important;padding:7px 14px!important}
+  #home .install-app-button{min-height:68px!important;font-size:clamp(17px,4.5vw,21px)!important}
+  #home .choice{min-height:78px!important;padding:10px 12px!important;gap:10px!important}
+  #home .choice-icon{width:53px!important;height:53px!important;flex-basis:53px!important;border-radius:17px!important}
+  #home .choice-icon svg{width:31px!important;height:31px!important}
+  #home .choice-title{font-size:clamp(13px,3.7vw,17px)!important}
+  #home .union-card{font-size:clamp(12px,3.2vw,15px)!important;padding:12px 14px!important}
+  #home .social-panel{padding:13px 10px!important}
+  #home .social-link{min-height:43px!important;font-size:clamp(11px,3vw,14px)!important;border-radius:15px!important}
+  #home .tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+  #home .tool-card{padding:8px 4px!important;border-radius:17px!important}
+  #home .tool-card-icon{width:45px!important;height:45px!important;border-radius:14px!important}
+  #home .tool-card-icon svg{width:26px!important;height:26px!important}
+  #home .tool-card-title{font-size:clamp(9px,2.8vw,12px)!important}
+  #home .support-home{min-width:150px!important;height:55px!important}
+  #home .support-home svg{width:27px!important;height:27px!important}
+  #home .support-label{font-size:17px!important}
 }
 @media(min-width:700px){
-  #home .home-inner{gap:18px!important}
-  #home .choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px!important}
-  #home .choice{min-height:150px!important;flex-direction:column;justify-content:center;text-align:center;padding:18px 12px!important}
-  #home .choice-title{flex:0 0 auto!important}
-  #home .choice-arrow{display:none}
-  #home .union-card{font-size:15px!important}
-  #home .tools-grid{grid-template-columns:repeat(3,minmax(0,150px))!important;justify-content:start!important}
+  #home .home-inner{width:min(100%,665px)!important}
+  #home .choices{grid-template-columns:1fr!important}
 }
-@media(prefers-reduced-motion:reduce){
-  #home .choice,#home .tool-card,#home .social-link,#home .support-home,#home .install-app-button{transition:none!important}
-}
-
+@media(prefers-reduced-motion:reduce){#home *{transition:none!important}}
 </style>
 </head>
 <body>
