@@ -13,14 +13,14 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "./favicon.png",
-      "sizes": "48x48",
+      "src": "./favicon.png?v=mm-logo-20261124",
+      "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./favicon.png",
-      "sizes": "48x48",
+      "src": "./favicon.png?v=mm-logo-20261124",
+      "sizes": "96x96",
       "type": "image/png",
       "purpose": "maskable"
     }
