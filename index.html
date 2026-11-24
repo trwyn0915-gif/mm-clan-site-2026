@@ -682,13 +682,13 @@ if ('caches' in window) {
   )).catch(() => {});
 }
 
-/* Install prompt and browser-specific desktop shortcut guidance. */
+/* Add a home-screen shortcut with browser-specific instructions.
+   Browsers control shortcut placement; do not trigger PWA installation here. */
 (function(){
   const installButton = document.getElementById('installAppButton');
   const notice = document.getElementById('mmToolNotice');
   const noticeTitle = document.getElementById('mmToolNoticeTitle');
   const noticeText = document.getElementById('mmToolNoticeText');
-  let installPrompt = null;
   function showInstallHelp(title, message){
     noticeTitle.textContent = title;
     noticeText.textContent = message;
@@ -696,35 +696,24 @@ if ('caches' in window) {
     document.body.style.overflow = 'hidden';
     document.getElementById('mmToolNoticeClose').focus();
   }
-  window.addEventListener('beforeinstallprompt', event => {
-    event.preventDefault();
-    installPrompt = event;
-  });
-  window.addEventListener('appinstalled', () => {
-    installPrompt = null;
-    installButton.hidden = true;
-  });
-  // Hide the install card while the installed app itself is running.
-  if (window.matchMedia('(display-mode: standalone)').matches ||
-      window.navigator.standalone === true) {
-    installButton.hidden = true;
-  }
-  installButton.addEventListener('click', async () => {
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      showInstallHelp('پنل از قبل نصب شده', 'پنل خدمات MM در حالت برنامه اجرا شده است.');
+  installButton.addEventListener('click', () => {
+    if (window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true) {
+      showInstallHelp('میانبر پنل فعال است', 'پنل در حال حاضر به‌صورت برنامه باز شده است. برای قرار دادن آیکون آن روی صفحه اصلی، از فهرست برنامه‌های گوشی گزینه افزودن به صفحه اصلی را انتخاب کنید.');
       return;
     }
-    if (installPrompt) {
-      installPrompt.prompt();
-      const result = await installPrompt.userChoice;
-      installPrompt = null;
-      if (result && result.outcome === 'accepted') installButton.querySelector('span').textContent = 'در حال نصب پنل...';
-      return;
+    const ua = navigator.userAgent;
+    if (/SamsungBrowser/i.test(ua)) {
+      showInstallHelp('افزودن به صفحه اصلی', 'در مرورگر سامسونگ، منوی سه‌خط را باز کنید، گزینه «افزودن صفحه به» و سپس «صفحه اصلی» را انتخاب کنید. در پایان «افزودن» را بزنید.');
+    } else if (/iPhone|iPad|iPod/i.test(ua)) {
+      showInstallHelp('افزودن به صفحه اصلی', 'در Safari دکمه اشتراک‌گذاری را بزنید، گزینه «Add to Home Screen» یا «افزودن به صفحه اصلی» را انتخاب کنید و سپس «Add» را بزنید.');
+    } else if (/Android/i.test(ua)) {
+      showInstallHelp('افزودن میانبر به صفحه اصلی', 'در مرورگر Chrome منوی سه‌نقطه را باز کنید، «افزودن به صفحه اصلی» یا «Add to home screen» را انتخاب کنید. اگر گزینه «ایجاد میانبر» نمایش داده شد، آن را انتخاب و در پایان «افزودن» را بزنید. گزینه «نصب برنامه» را انتخاب نکنید.');
+    } else {
+      showInstallHelp('افزودن میانبر پنل', 'از منوی مرورگر گزینه «ایجاد میانبر» یا «افزودن به صفحه اصلی» را انتخاب کنید. در رایانه می‌توانید از گزینه ساخت میانبر یا نصب سایت در منوی مرورگر استفاده کنید.');
     }
-    showInstallHelp('افزودن پنل به دسکتاپ', 'در مرورگر Google Chrome: از منوی سه‌نقطه گزینه Cast, save and share و سپس Create shortcut را انتخاب کنید. در Microsoft Edge: از منوی سه‌نقطه وارد Apps شوید و Install this site as an app را بزنید. سپس آیکون پنل در دسکتاپ یا فهرست برنامه‌ها قرار می‌گیرد.');
   });
 })();
-
 </script>
 </body>
 </html>
