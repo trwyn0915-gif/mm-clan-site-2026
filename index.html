@@ -732,21 +732,22 @@ if ('caches' in window) {
   )).catch(() => {});
 }
 
-/* Native PWA install: wait for service-worker readiness and the browser prompt.
-   Never replace the native install dialog with manual-instructions popups. */
+/* Native PWA install: prompt() must run immediately in the click gesture.
+   Awaiting service-worker readiness first can consume Chrome's user activation. */
 (function(){
   const installButton=document.getElementById('installAppButton');
   if(!installButton) return;
   const label=installButton.querySelector('span');
   let installPrompt=null;
-  let promptWaiters=[];
   window.addEventListener('beforeinstallprompt',event=>{
     event.preventDefault();
     installPrompt=event;
-    promptWaiters.splice(0).forEach(resolve=>resolve());
+    installButton.disabled=false;
+    installButton.dataset.installReady='true';
   });
   window.addEventListener('appinstalled',()=>{
     installPrompt=null;
+    installButton.dataset.installReady='false';
     if(label) label.textContent='پنل اضافه شد';
     installButton.disabled=true;
   });
@@ -755,27 +756,26 @@ if ('caches' in window) {
       if(label) label.textContent='پنل اضافه شد';
       return;
     }
+    if(!installPrompt){
+      installButton.dataset.installReady='false';
+      return;
+    }
+    const event=installPrompt;
+    installPrompt=null;
     installButton.disabled=true;
     try{
-      if('serviceWorker' in navigator){
-        await navigator.serviceWorker.ready;
-      }
-      if(!installPrompt){
-        await Promise.race([
-          new Promise(resolve=>promptWaiters.push(resolve)),
-          new Promise(resolve=>setTimeout(resolve,1800))
-        ]);
-      }
-      if(!installPrompt) return;
-      const event=installPrompt;
-      installPrompt=null;
-      await event.prompt();
+      /* Do not put any await before prompt(): Chrome requires the active user gesture. */
+      const promptResult=event.prompt();
+      await promptResult;
       const choice=await event.userChoice;
       if(choice && choice.outcome==='accepted'){
         if(label) label.textContent='در حال نصب پنل...';
+      }else{
+        installButton.dataset.installReady='true';
       }
     }catch(error){
       console.warn('MM install prompt:',error);
+      installButton.dataset.installReady='true';
     }finally{
       installButton.disabled=false;
     }
