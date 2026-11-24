@@ -10,7 +10,7 @@
 <meta name="description" content="اتحادیه MM، جامعه بزرگ انیمال راش و پنل خدمات بازیکنان؛ عضویت در کلن و گپ روبیکا، رزرو تبلیغات و دسترسی به کاربرگ‌ساز آنلاین دبیران.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://trwyn0915-gif.github.io/mm-clan-site-2026/">
-<link rel="manifest" href="./manifest.webmanifest?v=mm-pwa-v7">
+<link rel="manifest" href="./manifest.webmanifest?v=mm-pwa-v8">
 <link rel="icon" type="image/png" sizes="256x256" href="./mm-app-icon.png?v=mm-user-logo-20261124">
 <link rel="shortcut icon" href="./mm-app-icon.png?v=mm-user-logo-20261124" type="image/png">
 <link rel="apple-touch-icon" sizes="256x256" href="./mm-app-icon.png?v=mm-user-logo-20261124">
@@ -758,6 +758,7 @@ if ('caches' in window) {
     }
     if(!installPrompt){
       installButton.dataset.installReady='false';
+      alert('گزینه نصب هنوز توسط Chrome آماده نشده است. از منوی سه‌نقطه Chrome گزینه «نصب برنامه» یا «افزودن به صفحه اصلی» را انتخاب کنید. اگر این گزینه را نمی‌بینید، صفحه را یک‌بار تازه‌سازی کنید و کمی صبر کنید.');
       return;
     }
     const event=installPrompt;
