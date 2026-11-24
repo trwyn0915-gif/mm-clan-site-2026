@@ -482,6 +482,25 @@ html,body,#app{background:#f2f7fa}
 }
 @media(prefers-reduced-motion:reduce){#home *{transition:none!important}}
  
+/* Prevent Android Chrome's rectangular tap highlight on touch controls.
+   Keep visible keyboard focus for accessibility. */
+button,a,.choice,.tool-card,.social-link,[role="button"]{
+  -webkit-tap-highlight-color:transparent;
+}
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+.choice:focus:not(:focus-visible),
+.tool-card:focus:not(:focus-visible),
+.social-link:focus:not(:focus-visible){
+  outline:none;
+}
+@media(hover:none) and (pointer:coarse){
+  #home .choice:hover{
+    border-color:#dce8ef;
+    box-shadow:0 7px 20px #183d570d;
+  }
+  #home .choice:active{transform:scale(.985)}
+}
 /* MM quick search */
 .site-search{position:relative;width:100%;z-index:20;direction:rtl}
 .site-search-label{display:block;margin:0 4px 6px;color:#29495f;font-size:12px;font-weight:900}
