@@ -13,6 +13,12 @@
   "prefer_related_applications": false,
   "icons": [
     {
+      "src": "./mm-pwa-icon.svg?v=mm-install-20261124",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
       "src": "./mm-app-icon.png?v=mm-user-logo-20261124",
       "sizes": "256x256",
       "type": "image/png",
