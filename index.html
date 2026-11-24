@@ -750,7 +750,8 @@ if ('caches' in window) {
   )).catch(() => {});
 }
 
-/* MM branded install dialog with native browser confirmation only after user action. */
+/* Wait until the install dialog markup below has been parsed before binding events. */
+document.addEventListener('DOMContentLoaded', function(){
 (function(){
  const openButton=document.getElementById('installAppButton');
  const dialog=document.getElementById('mmInstallDialog');
@@ -807,6 +808,7 @@ if ('caches' in window) {
    }
  });
 })();
+});
  
 // MM site-wide keyword search: each destination has its own Persian search terms.
 (function(){
