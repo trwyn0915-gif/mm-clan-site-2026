@@ -10,8 +10,8 @@
 <meta name="description" content="اتحادیه MM، جامعه بزرگ انیمال راش و پنل خدمات بازیکنان؛ عضویت در کلن و گپ روبیکا، رزرو تبلیغات و دسترسی به کاربرگ‌ساز آنلاین دبیران.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://trwyn0915-gif.github.io/mm-clan-site-2026/">
-<link rel="manifest" href="./manifest.webmanifest?v=mm-pwa-v8">
-<link rel="icon" type="image/png" sizes="256x256" href="./mm-app-icon.png?v=mm-user-logo-20261124">
+<link rel="manifest" href="/mm-clan-site-2026/manifest.webmanifest?v=mm-pwa-v9">
+<link rel="icon" type="image/png" sizes="256x256" href="/mm-clan-site-2026/mm-app-icon.png?v=mm-user-logo-20261124-v9">
 <link rel="shortcut icon" href="./mm-app-icon.png?v=mm-user-logo-20261124" type="image/png">
 <link rel="apple-touch-icon" sizes="256x256" href="./mm-app-icon.png?v=mm-user-logo-20261124">
 <meta name="application-name" content="خدمات MM">
@@ -723,7 +723,7 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
 /* Register the app service worker so desktop browsers can offer installation. */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(error => console.warn('MM app setup:', error));
+    navigator.serviceWorker.register('/mm-clan-site-2026/sw.js', {scope:'/mm-clan-site-2026/'}).catch(error => console.warn('MM app setup:', error));
   });
 }
 if ('caches' in window) {
