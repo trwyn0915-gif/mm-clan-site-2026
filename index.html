@@ -10,10 +10,10 @@
 <meta name="description" content="اتحادیه MM، جامعه بزرگ انیمال راش و پنل خدمات بازیکنان؛ عضویت در کلن و گپ روبیکا، رزرو تبلیغات و دسترسی به کاربرگ‌ساز آنلاین دبیران.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://trwyn0915-gif.github.io/mm-clan-site-2026/">
-<link rel="manifest" href="/mm-clan-site-2026/manifest.webmanifest?v=mm-pwa-v9">
-<link rel="icon" type="image/png" sizes="256x256" href="/mm-clan-site-2026/mm-app-icon.png?v=mm-user-logo-20261124-v9">
-<link rel="shortcut icon" href="./mm-app-icon.png?v=mm-user-logo-20261124" type="image/png">
-<link rel="apple-touch-icon" sizes="256x256" href="./mm-app-icon.png?v=mm-user-logo-20261124">
+<link rel="manifest" href="./manifest.webmanifest?v=mm-pwa-v10">
+<link rel="icon" type="image/svg+xml" href="./mm-pwa-icon.svg?v=mm-pwa-v10">
+<link rel="shortcut icon" href="./mm-pwa-icon.svg?v=mm-pwa-v10" type="image/svg+xml">
+<link rel="apple-touch-icon" sizes="512x512" href="./mm-pwa-icon.svg?v=mm-pwa-v10">
 <meta name="application-name" content="خدمات MM">
 <meta name="mobile-web-app-capable" content="yes">
 
@@ -524,6 +524,24 @@ a:focus:not(:focus-visible),
 #home{overflow-x:hidden!important;overflow-y:auto!important;justify-content:flex-start!important}
 #home .home-inner{height:auto!important;min-height:100%;max-height:none!important;justify-content:flex-start!important;gap:12px}
 
+
+/* MM branded install dialog */
+#mmInstallDialog{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,17,35,.68);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+#mmInstallDialog.is-open{display:flex}
+#mmInstallDialog .mm-install-card{width:min(100%,390px);padding:26px 22px 20px;border-radius:28px;background:linear-gradient(155deg,#fff 0%,#f0f8fc 100%);border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 70px rgba(0,10,30,.3);text-align:center;animation:mmInstallIn .22s ease-out}
+#mmInstallDialog .mm-install-logo{width:112px;height:112px;object-fit:cover;border-radius:26px;display:block;margin:0 auto 16px;box-shadow:0 9px 24px rgba(7,80,150,.2)}
+#mmInstallDialog h2{margin:0 0 8px;color:#102b45;font-size:22px;font-weight:900}
+#mmInstallDialog p{margin:0 auto 18px;color:#536b7c;font-size:14px;line-height:2;font-weight:700}
+#mmInstallDialog .mm-install-actions{display:flex;gap:10px}
+#mmInstallDialog button{min-height:48px;border:0;border-radius:14px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:900;cursor:pointer}
+#mmInstallConfirm{flex:1;background:linear-gradient(135deg,#0879d8,#073c82);color:#fff;box-shadow:0 6px 16px rgba(8,78,150,.22)}
+#mmInstallCancel{background:#e7eef3;color:#24445d}
+#mmInstallDialog .mm-install-hint{display:none;margin-top:14px;padding:12px;border-radius:14px;background:#e8f4fa;color:#294b63;font-size:13px;line-height:2;font-weight:700}
+#mmInstallDialog.show-help .mm-install-hint{display:block}
+#mmInstallDialog.show-help #mmInstallConfirm{display:none}
+@keyframes mmInstallIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){#mmInstallDialog .mm-install-card{animation:none}}
+
 </style>
 </head>
 <body>
@@ -723,7 +741,7 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
 /* Register the app service worker so desktop browsers can offer installation. */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/mm-clan-site-2026/sw.js', {scope:'/mm-clan-site-2026/'}).catch(error => console.warn('MM app setup:', error));
+    navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(error => console.warn('MM app setup:', error));
   });
 }
 if ('caches' in window) {
@@ -732,55 +750,62 @@ if ('caches' in window) {
   )).catch(() => {});
 }
 
-/* Native PWA install: prompt() must run immediately in the click gesture.
-   Awaiting service-worker readiness first can consume Chrome's user activation. */
+/* MM branded install dialog with native browser confirmation only after user action. */
 (function(){
-  const installButton=document.getElementById('installAppButton');
-  if(!installButton) return;
-  const label=installButton.querySelector('span');
-  let installPrompt=null;
-  window.addEventListener('beforeinstallprompt',event=>{
-    event.preventDefault();
-    installPrompt=event;
-    installButton.disabled=false;
-    installButton.dataset.installReady='true';
-  });
-  window.addEventListener('appinstalled',()=>{
-    installPrompt=null;
-    installButton.dataset.installReady='false';
-    if(label) label.textContent='پنل اضافه شد';
-    installButton.disabled=true;
-  });
-  installButton.addEventListener('click',async()=>{
-    if(window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true){
-      if(label) label.textContent='پنل اضافه شد';
-      return;
-    }
-    if(!installPrompt){
-      installButton.dataset.installReady='false';
-      alert('گزینه نصب هنوز توسط Chrome آماده نشده است. از منوی سه‌نقطه Chrome گزینه «نصب برنامه» یا «افزودن به صفحه اصلی» را انتخاب کنید. اگر این گزینه را نمی‌بینید، صفحه را یک‌بار تازه‌سازی کنید و کمی صبر کنید.');
-      return;
-    }
-    const event=installPrompt;
-    installPrompt=null;
-    installButton.disabled=true;
-    try{
-      /* Do not put any await before prompt(): Chrome requires the active user gesture. */
-      const promptResult=event.prompt();
-      await promptResult;
-      const choice=await event.userChoice;
-      if(choice && choice.outcome==='accepted'){
-        if(label) label.textContent='در حال نصب پنل...';
-      }else{
-        installButton.dataset.installReady='true';
-      }
-    }catch(error){
-      console.warn('MM install prompt:',error);
-      installButton.dataset.installReady='true';
-    }finally{
-      installButton.disabled=false;
-    }
-  });
+ const openButton=document.getElementById('installAppButton');
+ const dialog=document.getElementById('mmInstallDialog');
+ const confirmButton=document.getElementById('mmInstallConfirm');
+ const cancelButton=document.getElementById('mmInstallCancel');
+ const description=document.getElementById('mmInstallDescription');
+ if(!openButton||!dialog||!confirmButton||!cancelButton) return;
+ let installPrompt=null;
+ function closeDialog(){dialog.classList.remove('is-open','show-help');}
+ function openDialog(){dialog.classList.add('is-open');}
+ window.addEventListener('beforeinstallprompt',event=>{
+   event.preventDefault();
+   installPrompt=event;
+ });
+ window.addEventListener('appinstalled',()=>{
+   installPrompt=null;
+   openButton.querySelector('span').textContent='پنل نصب شد';
+   closeDialog();
+ });
+ openButton.addEventListener('click',()=>{
+   if(window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true){
+     description.textContent='پنل MM هم‌اکنون روی دستگاهت نصب شده است.';
+     confirmButton.style.display='none';
+     openDialog();
+     return;
+   }
+   confirmButton.style.display='';
+   openDialog();
+ });
+ cancelButton.addEventListener('click',closeDialog);
+ dialog.addEventListener('click',event=>{if(event.target===dialog)closeDialog();});
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&dialog.classList.contains('is-open'))closeDialog();});
+ confirmButton.addEventListener('click',async()=>{
+   if(!installPrompt){
+     dialog.classList.add('show-help');
+     return;
+   }
+   const promptEvent=installPrompt;
+   installPrompt=null;
+   try{
+     const result=promptEvent.prompt();
+     await result;
+     const choice=await promptEvent.userChoice;
+     if(choice&&choice.outcome==='accepted'){
+       description.textContent='درخواست نصب ارسال شد. پس از تأیید پنجره مرورگر، پنل به دستگاهت اضافه می‌شود.';
+       confirmButton.style.display='none';
+     }else{
+       installPrompt=null;
+       dialog.classList.add('show-help');
+     }
+   }catch(error){
+     console.warn('MM install:',error);
+     dialog.classList.add('show-help');
+   }
+ });
 })();
  
 // MM site-wide keyword search: each destination has its own Persian search terms.
@@ -913,5 +938,17 @@ if ('caches' in window) {
 })();
 
 </script>
+<div id="mmInstallDialog" role="dialog" aria-modal="true" aria-labelledby="mmInstallTitle" aria-describedby="mmInstallDescription">
+ <div class="mm-install-card">
+  <img class="mm-install-logo" src="./mm-pwa-icon.svg?v=mm-pwa-v10" alt="نشان اتحادیه MM">
+  <h2 id="mmInstallTitle">پنل خدمات اتحادیه MM</h2>
+  <p id="mmInstallDescription">با نصب پنل، خدمات اتحادیه را مستقیم از صفحه اصلی گوشی یا رایانه باز کن.</p>
+  <div class="mm-install-actions">
+   <button id="mmInstallConfirm" type="button">نصب پنل MM</button>
+   <button id="mmInstallCancel" type="button">بعداً</button>
+  </div>
+  <div class="mm-install-hint" id="mmInstallHint">برای نصب، منوی سه‌نقطه مرورگر را باز کن و گزینه «نصب برنامه» یا «افزودن به صفحه اصلی» را انتخاب کن.</div>
+ </div>
+</div>
 </body>
 </html>
