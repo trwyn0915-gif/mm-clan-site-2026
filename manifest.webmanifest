@@ -13,16 +13,16 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "./mm-app-icon.png",
-      "sizes": "256x256",
-      "type": "image/png",
+      "src": "./mm-pwa-icon.svg?v=mm-pwa-v7",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "./mm-app-icon.png",
+      "src": "./mm-app-icon.png?v=mm-pwa-v7",
       "sizes": "256x256",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     }
   ]
 }
