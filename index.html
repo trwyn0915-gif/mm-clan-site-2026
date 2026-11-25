@@ -814,8 +814,9 @@ document.addEventListener('DOMContentLoaded', function(){
    dialog.classList.remove('is-installing','show-help');
    progressBar.style.transition='none';
    progressBar.style.width='100%';
-   progressLabel.textContent='درحال نصب';
-   description.textContent='پنل خدمات MM به دستگاهت اضافه شد.';
+   progressLabel.textContent='نصب شد';
+   description.textContent='';
+   description.style.display='none';
    confirmButton.style.display='none';
    cancelButton.textContent='بستن';
    openButton.querySelector('span').textContent='پنل نصب شد';
@@ -843,7 +844,8 @@ document.addEventListener('DOMContentLoaded', function(){
    }
    confirmButton.style.display='';
    cancelButton.textContent='بعداً';
-   description.textContent='برای افزودن پنل به دستگاه، دکمه نصب را بزن.';
+   description.textContent='';
+   description.style.display='none';
    progressLabel.textContent='درحال نصب';
    openDialog();
  });
