@@ -728,6 +728,24 @@ history.replaceState({mmView:'home'}, '', location.pathname + location.search);
     closeButton.focus();
   }
   document.getElementById('programmingToolCard').addEventListener('click', showNotice);
+  const ripCard = document.getElementById('ripToolCard');
+  const noticeTitle = document.getElementById('mmToolNoticeTitle');
+  const noticeText = document.getElementById('mmToolNoticeText');
+  const defaultTitle = noticeTitle.textContent;
+  const defaultText = noticeText.textContent;
+  ripCard.addEventListener('click', function(event){
+    if (mobileDevice) return;
+    event.preventDefault();
+    noticeTitle.textContent = 'ورود با کامپیوتر امکان‌پذیر نیست';
+    noticeText.textContent = 'بازی «نقش‌آفرینی آنلاین MM» فقط برای گوشی طراحی شده است. لطفاً با تلفن همراه وارد شوید.';
+    notice.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeButton.focus();
+  });
+  closeButton.addEventListener('click', function(){
+    noticeTitle.textContent = defaultTitle;
+    noticeText.textContent = defaultText;
+  });
   closeButton.addEventListener('click', closeNotice);
   notice.addEventListener('click', function(event){
     if (event.target === notice) closeNotice();
