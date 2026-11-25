@@ -538,9 +538,9 @@ a:focus:not(:focus-visible),
 #mmInstallDialog .mm-install-divider{height:1px;margin:0 0 18px;background:#dce9f7}
 #mmInstallProgress{display:none;margin:0 0 18px;text-align:center}
 #mmInstallDialog.is-installing #mmInstallProgress{display:block}
-#mmInstallProgressTrack{position:relative;width:calc(100% + 30px);height:25px;margin:0 -15px;overflow:hidden;border-radius:999px;background:#e5edf6;direction:ltr;box-shadow:inset 0 1px 3px rgba(20,50,80,.12)}
-#mmInstallProgressBar{width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#08b9d8,#0874e8);transition:width 25s linear}
-#mmInstallProgressLabel{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;margin:0;color:#173b5a;font-size:13px;font-weight:900;line-height:1;pointer-events:none}
+#mmInstallProgressTrack{position:relative;width:calc(100% + 30px);height:42px;margin:0 -15px;overflow:hidden;border:2px solid #aeb9c2;border-radius:999px;background:#fff;direction:ltr;box-shadow:inset 0 1px 2px rgba(20,50,80,.08)}
+#mmInstallProgressBar{width:0;height:100%;border-radius:999px;background:#add8f5;transition:width 25s linear}
+#mmInstallProgressLabel{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;margin:0;color:#1768b9;font-size:17px;font-weight:900;line-height:1;pointer-events:none}
 #mmInstallDialog.is-installing .mm-install-actions{display:none}
 #mmInstallDialog.is-installing .mm-install-close{display:none}
 
@@ -814,7 +814,7 @@ document.addEventListener('DOMContentLoaded', function(){
    dialog.classList.remove('is-installing','show-help');
    progressBar.style.transition='none';
    progressBar.style.width='100%';
-   progressLabel.textContent='درحال نصب...';
+   progressLabel.textContent='درحال نصب';
    description.textContent='پنل خدمات MM به دستگاهت اضافه شد.';
    confirmButton.style.display='none';
    cancelButton.textContent='بستن';
@@ -844,7 +844,7 @@ document.addEventListener('DOMContentLoaded', function(){
    confirmButton.style.display='';
    cancelButton.textContent='بعداً';
    description.textContent='برای افزودن پنل به دستگاه، دکمه نصب را بزن.';
-   progressLabel.textContent='درحال نصب...';
+   progressLabel.textContent='درحال نصب';
    openDialog();
  });
  cancelButton.addEventListener('click',closeDialog);
@@ -864,7 +864,7 @@ document.addEventListener('DOMContentLoaded', function(){
    dialog.classList.remove('show-help');
    dialog.classList.add('is-installing');
    confirmButton.disabled=true;
-   progressLabel.textContent='درحال نصب...';
+   progressLabel.textContent='درحال نصب';
    progressBar.style.transition='none';
    progressBar.style.width='0';
    requestAnimationFrame(()=>requestAnimationFrame(()=>{
@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function(){
        }else{
          installing=false;
          dialog.classList.remove('is-installing');
-         progressLabel.textContent='درحال نصب...';
+         progressLabel.textContent='درحال نصب';
          description.textContent='اگر آیکون هنوز اضافه نشده، چند لحظه صبر کن یا نصب را از منوی Chrome کامل کن.';
          confirmButton.disabled=false;
          confirmButton.textContent='تلاش دوباره';
@@ -1050,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div id="mmInstallProgress" aria-live="polite">
    <div id="mmInstallProgressTrack">
     <div id="mmInstallProgressBar"></div>
-    <span id="mmInstallProgressLabel">درحال نصب...</span>
+    <span id="mmInstallProgressLabel">درحال نصب</span>
    </div>
   </div>
   <div class="mm-install-actions">
