@@ -788,6 +788,20 @@ document.addEventListener('DOMContentLoaded', function(){
  let installPrompt=null;
  let appInstalled=false;
  let installing=false;
+ const installStateKey='mm-pwa-installed-v1';
+ function hideInstallButton(){
+   openButton.style.display='none';
+ }
+ function showInstallButton(){
+   openButton.style.display='';
+ }
+ const launchedAsApp=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+ if(launchedAsApp){
+   try{localStorage.setItem(installStateKey,'1');}catch(error){}
+   hideInstallButton();
+ }else{
+   try{if(localStorage.getItem(installStateKey)==='1') hideInstallButton();}catch(error){}
+ }
  function closeDialog(){
    if(installing) return;
    dialog.classList.remove('is-open','show-help','is-installing');
@@ -805,13 +819,20 @@ document.addEventListener('DOMContentLoaded', function(){
    confirmButton.style.display='none';
    cancelButton.textContent='بستن';
    openButton.querySelector('span').textContent='پنل نصب شد';
+   hideInstallButton();
+   try{localStorage.setItem(installStateKey,'1');}catch(error){}
  }
  window.addEventListener('beforeinstallprompt',event=>{
    event.preventDefault();
    installPrompt=event;
+   // If the installed app was removed, Chrome makes the site installable again.
+   try{localStorage.removeItem(installStateKey);}catch(error){}
+   showInstallButton();
  });
  window.addEventListener('appinstalled',()=>{
    appInstalled=true;
+   hideInstallButton();
+   try{localStorage.setItem(installStateKey,'1');}catch(error){}
  });
  openButton.addEventListener('click',()=>{
    if(window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true){
