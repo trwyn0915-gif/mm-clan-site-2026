@@ -538,6 +538,10 @@ a:focus:not(:focus-visible),
 #mmInstallDialog .mm-install-divider{height:1px;margin:0 0 18px;background:#dce9f7}
 #mmInstallProgress{display:none;margin:0 0 18px;text-align:center}
 #mmInstallDialog.is-installing #mmInstallProgress{display:block}
+#mmInstallDialog.has-error #mmInstallProgress{display:block}
+#mmInstallDialog.has-error #mmInstallProgressLabel{color:#c62828}
+#mmInstallDialog.has-error #mmInstallProgressTrack{border-color:#e3a5a5}
+#mmInstallDialog.has-error #mmInstallProgressBar{width:0!important;transition:none!important}
 #mmInstallProgressTrack{position:relative;width:calc(100% + 30px);height:42px;margin:0 -15px;overflow:hidden;border:2px solid #aeb9c2;border-radius:999px;background:#fff;direction:ltr;box-shadow:inset 0 1px 2px rgba(20,50,80,.08)}
 #mmInstallProgressBar{width:0;height:100%;border-radius:999px;background:#add8f5;transition:width 25s linear}
 #mmInstallProgressLabel{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;margin:0;color:#1768b9;font-size:17px;font-weight:900;line-height:1;pointer-events:none}
@@ -804,9 +808,13 @@ document.addEventListener('DOMContentLoaded', function(){
  }
  function closeDialog(){
    if(installing) return;
-   dialog.classList.remove('is-open','show-help','is-installing');
+   dialog.classList.remove('is-open','show-help','is-installing','has-error');
    progressBar.style.transition='none';
    progressBar.style.width='0';
+   progressLabel.textContent='درحال نصب';
+   confirmButton.disabled=false;
+   confirmButton.textContent='نصب';
+   cancelButton.textContent='بعداً';
  }
  function openDialog(){dialog.classList.add('is-open');}
  function showInstalled(){
@@ -863,41 +871,48 @@ document.addEventListener('DOMContentLoaded', function(){
    installPrompt=null;
    installing=true;
    appInstalled=false;
-   dialog.classList.remove('show-help');
-   dialog.classList.add('is-installing');
+   dialog.classList.remove('show-help','has-error');
    confirmButton.disabled=true;
-   progressLabel.textContent='درحال نصب';
+   progressLabel.textContent='';
    progressBar.style.transition='none';
    progressBar.style.width='0';
-   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-     progressBar.style.transition='width 25s linear';
-     progressBar.style.width='100%';
-   }));
-   const startedAt=Date.now();
    try{
+     // The native Android/Chrome install sheet is now in control.
+     // Keep the site's progress completely stopped until the user accepts it.
      const promptResult=promptEvent.prompt();
      await promptResult;
      const choice=await promptEvent.userChoice;
-     const remaining=Math.max(0,25000-(Date.now()-startedAt));
      if(choice&&choice.outcome==='accepted'){
-       await new Promise(resolve=>setTimeout(resolve,remaining));
+       dialog.classList.add('is-installing');
+       progressLabel.textContent='درحال نصب';
+       requestAnimationFrame(()=>requestAnimationFrame(()=>{
+         progressBar.style.transition='width 25s linear';
+         progressBar.style.width='100%';
+       }));
+       await new Promise(resolve=>setTimeout(resolve,25000));
        if(appInstalled){
          showInstalled();
        }else{
          installing=false;
          dialog.classList.remove('is-installing');
-         progressLabel.textContent='درحال نصب';
-         description.textContent='اگر آیکون هنوز اضافه نشده، چند لحظه صبر کن یا نصب را از منوی Chrome کامل کن.';
+         progressBar.style.transition='none';
+         progressBar.style.width='0';
+         progressLabel.textContent='نصب تأیید نشد';
+         dialog.classList.add('has-error');
          confirmButton.disabled=false;
          confirmButton.textContent='تلاش دوباره';
+         cancelButton.textContent='بستن';
        }
      }else{
        installing=false;
        dialog.classList.remove('is-installing');
        progressBar.style.transition='none';
        progressBar.style.width='0';
-       dialog.classList.add('show-help');
+       progressLabel.textContent='خطا در دانلود';
+       dialog.classList.add('has-error');
        confirmButton.disabled=false;
+       confirmButton.textContent='تلاش دوباره';
+       cancelButton.textContent='بستن';
      }
    }catch(error){
      console.warn('MM install:',error);
@@ -905,8 +920,11 @@ document.addEventListener('DOMContentLoaded', function(){
      dialog.classList.remove('is-installing');
      progressBar.style.transition='none';
      progressBar.style.width='0';
+     progressLabel.textContent='خطا در دانلود';
+     dialog.classList.add('has-error');
      confirmButton.disabled=false;
-     dialog.classList.add('show-help');
+     confirmButton.textContent='تلاش دوباره';
+     cancelButton.textContent='بستن';
    }
  });
 })();
